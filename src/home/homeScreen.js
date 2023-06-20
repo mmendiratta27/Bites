@@ -60,7 +60,7 @@ const Home = ({ navigation }) => {
         />
         <ScreenHeaderBtn iconUrl={icons.location} dimension="60%" />
         <ScreenHeaderBtn
-          iconUrl={icons.add}
+          iconUrl={icons.message}
           dimension="60%"
            //replace with AddPost Nav
         />
