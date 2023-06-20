@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "DormDash",
+    "slug": "DormDash",
+    "ios": {
+      "bundleIdentifier": "com.mmendiratta27.DormDash"
+    },
+    "android": {
+      "package": "com.SSU.Munchhour"
+    }
+  }
+}
