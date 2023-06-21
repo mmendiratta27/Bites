@@ -6,13 +6,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './src/home/homeScreen';
 import FeedScreen from './src/feed/Feed';
 import WelcomeScreen from './src/headerInfo/welcome/Welcome';
+import Settings from './src/settings/settings';
+import NotifSettings from './src/settings/notifSettings';
+
 
 const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer>
       <Stack.Navigator>
+       
+        <Stack.Screen name = 'Settings' component = {Settings} options={{height:'20%', headerShown: false}}/>
+        <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen
         options={{
                   headerStyle: { backgroundColor: "#F4EEE0" },

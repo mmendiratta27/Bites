@@ -1,16 +1,10 @@
-import { useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
-import { View, Text, Stylesheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
-import { Avatar } from 'react-native-elements';
-import { auth, db } from '../../firebase';
-import { signOut } from 'firebase/auth';
-import { COLORS, icons, images, SIZES } from "../../constants";
+import { useState, useRef, useEffect} from "react";
+import { View, ScrollView, SafeAreaView } from "react-native";
+
+import { icons, SIZES } from "../../constants";
 import Welcome from "../headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
 import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
-//import ChatHome from "../messages/ChatHome";
-import { createStackNavigator } from '@react-navigation/stack'
-import { NavigationContainer } from '@react-navigation/native';
-
 
 const Home = ({ navigation }) => {
 
