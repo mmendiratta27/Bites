@@ -35,7 +35,6 @@ const Home = ({ navigation }) => {
         <View style={{ flex: 1, padding: SIZES.medium }}>
           <Welcome searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Feed />
-
         </View>
       </ScrollView>
 
@@ -52,7 +51,7 @@ const Home = ({ navigation }) => {
           iconUrl={icons.home}
           dimension="60%"
           handlePress={() => {
-            navigation.navigate('homeScreen');
+            // navigation.navigate("HomeScreen");
             if (scrollViewRef.current) {
               scrollViewRef.current.scrollTo({ y: 0, animated: true });
             }
@@ -62,14 +61,14 @@ const Home = ({ navigation }) => {
         <ScreenHeaderBtn
           iconUrl={icons.add}
           dimension="60%"
-           //replace with AddPost Nav
+          handlePress={() => navigation.navigate("AddPost")}
         />
-        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%" /> 
+        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%" />
         <ScreenHeaderBtn
-        iconUrl={icons.message}
-        dimension="65%"
-       //replace with chat home
-        /> 
+          iconUrl={icons.message}
+          dimension="65%"
+          //replace with chat home
+        />
       </View>
     </SafeAreaView>
   );
