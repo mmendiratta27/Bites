@@ -16,8 +16,6 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
-        <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen
         options={{
                   headerStyle: { backgroundColor: "#F4EEE0" },
@@ -33,6 +31,9 @@ const App = () => {
         name='homeScreen' component={HomeScreen} />
         <Stack.Screen name='Feed' component={FeedScreen} />
         <Stack.Screen name='Welcome' component={WelcomeScreen} />
+
+        <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
+        <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
