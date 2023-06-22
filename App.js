@@ -2,6 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import { icons, images } from "./constants";
+import { View } from "react-native";
 import ScreenHeaderBtn from "./src/headerInfo/ScreenHeaderBtn";
 import HomeScreen from "./src/home/homeScreen";
 import FeedScreen from "./src/feed/Feed";
@@ -21,11 +22,13 @@ const App = () => {
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
             headerRight: () => (
-              <ScreenHeaderBtn
-                iconUrl={images.profile}
-                dimension="90%"
-                // handlePress={() => navigation.navigate("Profile")}
-              />
+              <View style={{ marginRight: 10 }}>
+                <ScreenHeaderBtn
+                  iconUrl={images.profile}
+                  dimension="90%"
+                  // handlePress={() => navigation.navigate("Profile")}
+                />
+              </View>
             ),
             headerTitle: "Munch Hour",
           }}
@@ -48,7 +51,6 @@ const App = () => {
             headerTitle: "Add Post",
           })}
         />
-       
       </Stack.Navigator>
     </NavigationContainer>
   );
