@@ -3,7 +3,11 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": "v5-bpn",
+=======
+  "urlRandomness": "y4-x8n",
+>>>>>>> b7d9a72a2deb36fa2a88334f678f5253599d69bf
   "https": false,
   "scheme": null,
   "devClient": false
