@@ -76,14 +76,14 @@ const Home = ({ navigation }) => {
           color="#353535"
           size={25}
           backgroundColor="transparent"
-          // onPress={() => navigation.navigate("Messages")}
+          onPress={() => navigation.navigate("Messages")}
         />
         <Icon.Button
           name="cog-outline"
           color="#353535"
           size={25}
           backgroundColor="transparent"
-          // onPress={() => navigation.navigate("Settings")}
+          onPress={() => navigation.navigate("Settings")}
         />
       </View>
     </SafeAreaView>
