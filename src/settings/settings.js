@@ -4,11 +4,12 @@ import { icons } from "../../constants";
 import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
+import Profile from "./profile";
+
 const SECTIONS = [
     {
         header: 'Preferences',
         items: [
-            { id: 'language', icon: 'globe', label: 'Language', type: 'select'},
             { id: 'darkMode', icon: 'moon', label: 'Dark Mode', type: 'toggle'},
             { id: 'notifications', icon: 'bell', label: 'Notifications', type: 'select'}
         ]
@@ -42,6 +43,8 @@ const Settings = ({navigation}) => {
                     <Text style={styles.title}>Settings</Text>
                     <Text style={styles.subtitle}>Update your preferences here</Text>
                 </View> 
+
+                <Profile/>
 
                 {SECTIONS.map(({header, items}) => (
                     <View style={styles.section} key={header}>

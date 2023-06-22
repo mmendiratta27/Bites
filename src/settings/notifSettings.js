@@ -37,8 +37,12 @@ const NotifSettings = ({navigation}) => {
     const scrollViewRef = useRef(null);
 
     const handlePress = () => {
-        
+        //backend stuff 
     };
+
+    const newRest = () =>{
+        //backend stuff
+    }
 
     const [form, setForm] = useState({
         language: 'English',
@@ -55,7 +59,7 @@ const NotifSettings = ({navigation}) => {
                 <View style={styles.header}>
                     <Text style={styles.title}>Notifications</Text>
                 </View> 
-
+                {/* change SECTIONS map with firebase backend stuff */}
                 {SECTIONS.map(({header, items}) => (
                     <View style={styles.section} key={header}>
                         <View style={styles.sectionHeader}>
@@ -68,7 +72,7 @@ const NotifSettings = ({navigation}) => {
                                 style={[
                                     styles.rowWrapper,
                                     index===0 && {borderTopWidth: 0},]} key = {id}>
-                                    {/* handleOnPress w backend*/}
+                                    
                                     <TouchableOpacity onPress={()=>{handlePress()}}> 
                                         <View style={styles.row}>
                                             <Text style={styles.rowLabel}>{label}</Text>
@@ -86,8 +90,20 @@ const NotifSettings = ({navigation}) => {
                                 </View>
                             ))}
                             {header === 'Restaurants' &&(
-                                <View>
-                                    <Text>This is a test</Text>
+                                <View 
+                                style={[
+                                    styles.rowWrapper,
+                                    ]}>
+                                    {/* handleOnPress w backend*/}
+                                    <TouchableOpacity onPress={()=>{newRest()}}> 
+                                        <View style={styles.row}>
+                                            <Text style={styles.rowLabel}>Add Another Restaurant</Text>
+
+                                            <View style={styles.rowSpacer} />
+                                            <ScreenHeaderBtn iconUrl={icons.add} dimension="60%" backgroundColor='#fff'/>
+                                        </View>
+                                        
+                                    </TouchableOpacity>
                                 </View>
                             )}
                         </View>

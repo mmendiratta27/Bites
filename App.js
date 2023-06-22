@@ -8,7 +8,7 @@ import FeedScreen from './src/feed/Feed';
 import WelcomeScreen from './src/headerInfo/welcome/Welcome';
 import Settings from './src/settings/settings';
 import NotifSettings from './src/settings/notifSettings';
-
+import Profile from './src/settings/profile';
 
 const Stack = createStackNavigator();
 
@@ -16,8 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-       
-        <Stack.Screen name = 'Settings' component = {Settings} options={{height:'20%', headerShown: false}}/>
+        <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
         <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen
         options={{
