@@ -7,7 +7,6 @@ import { COLORS, icons, images, SIZES } from "../../constants";
 import Welcome from "../headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
 import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
-//import ChatHome from "../messages/ChatHome";
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -62,14 +61,13 @@ const Home = ({ navigation }) => {
         <ScreenHeaderBtn
           iconUrl={icons.add}
           dimension="60%"
-           //replace with AddPost Nav
+//        handlePress={() => navigation.navigate('addPost')}
         />
-        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%" /> 
+        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%" />
         <ScreenHeaderBtn
         iconUrl={icons.message}
         dimension="65%"
-       //replace with chat home
-        /> 
+        handlePress={() => navigation.navigate('ChatHome')}/>
       </View>
     </SafeAreaView>
   );

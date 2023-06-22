@@ -1,19 +1,20 @@
 import { initializeApp, getApp } from 'firebase/app';
-import { initializeFirestore } from 'firebase/firestore';
+import { initializeFirestore, getFirestore } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-
-
+import Constants from "expo-constants"
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore'
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBNWIUGXSJLlhlt0sow6qwjciNGXj4Bro4",
-  authDomain: "messages-5fa5c.firebaseapp.com",
-  databaseURL: "https://messages-5fa5c-default-rtdb.firebaseio.com",
-  projectId: "messages-5fa5c",
-  storageBucket: "messages-5fa5c.appspot.com",
-  messagingSenderId: "24433986380",
-  appId: "1:24433986380:web:4afac8aaa9e41b368e1de9",
-  measurementId: "G-D860T2Y4BJ"
+  apiKey: "AIzaSyCxvbAvtRB3ah-2-hi0jMTZI9jXv-K1fk4",
+  authDomain: "ssu1-1518c.firebaseapp.com",
+  projectId: "ssu1-1518c",
+  storageBucket: "ssu1-1518c.appspot.com",
+  messagingSenderId: "110150881079",
+  appId: "1:110150881079:web:f22db7d7441d23ee70d4b2",
+  measurementId: "G-FFEPMHPQ05"
 };
 
 
@@ -22,4 +23,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = initializeFirestore(app, {experimentalForceLongPolling: true});
 
-export { db, auth };
+if (!firebase.apps.length) {
+firebase.initializeApp(firebaseConfig)
+}
+
+export { db, auth, firebase };
