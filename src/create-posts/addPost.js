@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
 import {
   View,
   Text,
+  StyleSheet,
   TextInput,
   Button,
   SafeAreaView,
@@ -17,9 +18,17 @@ import { KeyboardAvoidingView, Platform } from "react-native";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 
+import { IconButton, Title } from 'react-native-paper';
+import { auth, db, firebase } from '../../firebase';
+import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { GiftedChat } from 'react-native-gifted-chat';
+
+
+
 const MapComponent = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const scrollViewRef = useRef(null);
+
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -45,6 +54,38 @@ const MapComponent = ({ navigation }) => {
   const [region, setRegion] = useState(null);
   const [isAM, setIsAM] = useState(true);
   const [selectedOption, setSelectedOption] = useState("");
+
+
+function handleButtonPress() {
+  if (restaurant.length > 0) {
+    firebase.firestore()
+      .collection('threads')
+      .add({
+        name: restaurant,
+        latestMessage: {
+          text: `You have joined ${restaurant}.`,
+          createdAt: new Date().getTime()
+        }
+      })
+      .then(docRef => {
+        docRef.collection('messages').add({
+          text: `You have joined ${restaurant}.`,
+          createdAt: new Date().getTime(),
+          system: true
+        });
+        navigation.navigate('homeScreen');
+      });
+  }
+}
+
+
+
+
+
+
+
+
+
 
   const handleToggle = () => {
     setIsAM(!isAM);
@@ -114,10 +155,10 @@ const MapComponent = ({ navigation }) => {
     }
   };
 
-  const handleSubmit = async () => {
-    // router.push(`/`);
-    navigation.navigate("HomeScreen");
-  };
+//  const handleSubmit = async () => {
+//    // router.push(`/`);
+//    navigation.navigate("homeScreen");
+//  };
 
   return (
     <KeyboardAvoidingView
@@ -134,7 +175,7 @@ const MapComponent = ({ navigation }) => {
               <ScreenHeaderBtn
                 iconUrl={icons.leftArrow}
                 dimension="60%"
-                handlePress={() => navigation.navigate("HomeScreen")}
+                handlePress={() => navigation.navigate("homeScreen")}
               />
             ),
             headerTitle: "Add Post",
@@ -148,8 +189,10 @@ const MapComponent = ({ navigation }) => {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black" }}
+                    labelName='Restaurant'
                     value={restaurant}
+                    clearButtonMode='while-editing'
+                    style={{ color: "black" }}
                     onChangeText={(text) => setRestaurant(text)}
                   />
                 </View>
@@ -312,7 +355,8 @@ const MapComponent = ({ navigation }) => {
                   borderRadius: 5,
                   marginTop: 20,
                 }}
-                onPress={handleSubmit}
+                onPress={() => handleButtonPress()}
+                disabled={restaurant.length === 0}
               >
                 <Text style={{ color: "white", fontSize: 16 }}>Submit</Text>
               </TouchableOpacity>
