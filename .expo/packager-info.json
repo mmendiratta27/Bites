@@ -1,9 +1,16 @@
 {
   "expoServerPort": null,
+<<<<<<< HEAD
+  "packagerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
+=======
   "packagerPort": 19000,
   "expoServerNgrokUrl": "https://y4-x8n.jesshuang.groupdelivery.exp.direct",
   "packagerNgrokUrl": "https://y4-x8n.jesshuang.groupdelivery.exp.direct",
   "ngrokPid": 31248,
+>>>>>>> b7d9a72a2deb36fa2a88334f678f5253599d69bf
   "packagerPid": null,
   "webpackServerPort": null
 }

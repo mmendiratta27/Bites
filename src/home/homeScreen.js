@@ -37,6 +37,7 @@ const Home = ({ navigation }) => {
         </View>
       </ScrollView>
 
+
       <View
         style={{
           backgroundColor: "#F4EEE0",
@@ -62,7 +63,10 @@ const Home = ({ navigation }) => {
           dimension="60%"
           handlePress={() => navigation.navigate("AddPost")}
         />
-        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%" />
+        <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%"
+        handlePress={()=>{
+          navigation.navigate('Settings')
+        }}/> 
         <ScreenHeaderBtn
           iconUrl={icons.message}
           dimension="60%"

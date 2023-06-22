@@ -1,10 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-} from 'react-native';
-import { Title, IconButton } from 'react-native-paper'
 import ScreenHeaderBtn from "./src/headerInfo/ScreenHeaderBtn";
-import { COLORS, icons, images, SIZES } from "./constants";
+import { icons, images } from "./constants";
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './src/Auth/Login';
@@ -12,6 +8,8 @@ import RegisterScreen from './src/Auth/Register';
 import HomeScreen from './src/home/homeScreen';
 import FeedScreen from './src/feed/Feed';
 import WelcomeScreen from './src/headerInfo/welcome/Welcome';
+import Settings from './src/settings/settings';
+import NotifSettings from './src/settings/notifSettings';
 import ChatScreen from './src/messaging/Chat';
 import ChatHome from './src/messaging/ChatHome';
 import addChat from './src/messaging/addChat';
@@ -22,7 +20,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer independent={true}>
+    <NavigationContainer>
       <Stack.Navigator >
         <Stack.Screen name='Login' component={LoginScreen} />
         <Stack.Screen name='Register' component={RegisterScreen} />
@@ -42,6 +40,9 @@ const App = () => {
         name='homeScreen' component={HomeScreen} />
         <Stack.Screen name='Feed' component={FeedScreen} />
         <Stack.Screen name='Welcome' component={WelcomeScreen} />
+
+        <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
+        <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen name='Chat' component={ChatScreen}
         options={({ route }) => ({ title: route.params.thread.name })}
         />
