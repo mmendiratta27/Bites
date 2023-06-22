@@ -6,8 +6,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './src/Auth/Login';
 import RegisterScreen from './src/Auth/Register';
 import HomeScreen from './src/home/homeScreen';
-import FeedScreen from './src/feed/Feed';
-import WelcomeScreen from './src/headerInfo/welcome/Welcome';
 import Settings from './src/settings/settings';
 import NotifSettings from './src/settings/notifSettings';
 import ChatScreen from './src/messaging/Chat';
@@ -26,7 +24,6 @@ const App = () => {
         <Stack.Screen
         options={{
                   headerStyle: { backgroundColor: "#F4EEE0" },
-                  presentation: "modal",
                   headerShadowVisible: false,
                   headerLeft: () => (
                     <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
@@ -37,9 +34,6 @@ const App = () => {
                   headerTitle: "Munch Hour",
                 }}
         name='homeScreen' component={HomeScreen} />
-        <Stack.Screen name='Feed' component={FeedScreen} />
-        <Stack.Screen name='Welcome' component={WelcomeScreen} />
-
         <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
         <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen name='Chat' component={ChatScreen}
