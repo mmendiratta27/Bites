@@ -12,7 +12,6 @@ import Settings from './src/settings/settings';
 import NotifSettings from './src/settings/notifSettings';
 import ChatScreen from './src/messaging/Chat';
 import ChatHome from './src/messaging/ChatHome';
-import addChat from './src/messaging/addChat';
 import AddPost from "./src/create-posts/addPost";
 
 
@@ -47,7 +46,6 @@ const App = () => {
         options={({ route }) => ({ title: route.params.thread.name })}
         />
         <Stack.Screen name="ChatHome" component={ChatHome} />
-        <Stack.Screen name='addChat' component={addChat} />
         <Stack.Screen
                   name="AddPost"
                   component={AddPost}
