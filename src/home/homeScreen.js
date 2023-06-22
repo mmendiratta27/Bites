@@ -1,18 +1,46 @@
+<<<<<<< HEAD
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+} from "react";
+import {
+  View,
+  Text,
+  Stylesheet,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
+// import { Avatar } from 'react-native-elements';
+// import { auth, db } from '../../firebase';
+// import { signOut } from 'firebase/auth';
+=======
 import { useState, useRef, useEffect, useCallback, useLayoutEffect } from "react";
 import { View, Text, Stylesheet, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
 import { Avatar } from 'react-native-elements';
 import { auth, db, firebase } from '../../firebase';
 import { signOut } from 'firebase/auth';
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
 import { COLORS, icons, images, SIZES } from "../../constants";
 import Welcome from "../headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
 import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
+<<<<<<< HEAD
+//import ChatHome from "../messages/ChatHome";
+import { createStackNavigator } from "@react-navigation/stack";
+import { NavigationContainer } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icons from "react-native-vector-icons/MaterialIcons";
+=======
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native';
 
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
 
 const Home = ({ navigation }) => {
-
   const [searchTerm, setSearchTerm] = useState("");
   const scrollViewRef = useRef(null);
 
@@ -47,6 +75,14 @@ const Home = ({ navigation }) => {
           flexDirection: "row",
         }}
       >
+<<<<<<< HEAD
+        <Icon.Button
+          name="home-outline"
+          color="#353535"
+          size={25}
+          backgroundColor="transparent"
+          onPress={() => navigation.navigate("HomeScreen")}
+=======
         <ScreenHeaderBtn
           iconUrl={icons.home}
           dimension="60%"
@@ -56,13 +92,37 @@ const Home = ({ navigation }) => {
               scrollViewRef.current.scrollTo({ y: 0, animated: true });
             }
           }}
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
         />
-        <ScreenHeaderBtn iconUrl={icons.location} dimension="60%" />
-        <ScreenHeaderBtn
-          iconUrl={icons.add}
-          dimension="60%"
-          handlePress={() => navigation.navigate("AddPost")}
+        <Icon.Button
+          name="crown-outline"
+          color="#353535"
+          size={25}
+          backgroundColor="transparent"
+          // onPress={() => navigation.navigate("Achievements")}
         />
+<<<<<<< HEAD
+        <Icons.Button
+          name="add-circle-outline"
+          color="#353535"
+          size={25}
+          backgroundColor="transparent"
+          onPress={() => navigation.navigate("AddPost")}
+        />
+        <Icon.Button
+          name="message-processing-outline"
+          color="#353535"
+          size={25}
+          backgroundColor="transparent"
+          // onPress={() => navigation.navigate("Messages")}
+        />
+        <Icon.Button
+          name="cog-outline"
+          color="#353535"
+          size={25}
+          backgroundColor="transparent"
+          // onPress={() => navigation.navigate("Settings")}
+=======
         <ScreenHeaderBtn iconUrl={icons.searchbtn} dimension="60%"
         handlePress={()=>{
           navigation.navigate('Settings')
@@ -71,11 +131,11 @@ const Home = ({ navigation }) => {
           iconUrl={icons.message}
           dimension="60%"
           handlePress={() => navigation.navigate("ChatHome")}
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
         />
       </View>
     </SafeAreaView>
   );
-
 };
 
 export default Home;

@@ -1,16 +1,22 @@
 {
   "expoServerPort": null,
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
   "packagerPort": null,
   "expoServerNgrokUrl": null,
   "packagerNgrokUrl": null,
   "ngrokPid": null,
+<<<<<<< HEAD
+=======
 =======
   "packagerPort": 19000,
   "expoServerNgrokUrl": "https://y4-x8n.jesshuang.groupdelivery.exp.direct",
   "packagerNgrokUrl": "https://y4-x8n.jesshuang.groupdelivery.exp.direct",
   "ngrokPid": 31248,
 >>>>>>> b7d9a72a2deb36fa2a88334f678f5253599d69bf
+>>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
   "packagerPid": null,
   "webpackServerPort": null
 }
