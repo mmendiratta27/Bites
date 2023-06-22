@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
           color="#353535"
           size={25}
           backgroundColor="transparent"
-          onPress={() => navigation.navigate("Messages")}
+          onPress={() => navigation.navigate("ChatHome")}
         />
         <Icon.Button
           name="cog-outline"
