@@ -5,7 +5,6 @@ import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
-import BottomBar from "../home/BottomBar";
 
 const SECTIONS = [
     {
@@ -40,11 +39,6 @@ const Settings = ({navigation}) => {
     return(
         <SafeAreaView style={{flex:1, backgroundColor: '#F4EEE0'}}>
             <ScrollView contentContainerStyle={styles.container}>
-                {/* <View style={styles.header}>
-                    <Text style={styles.title}>Settings</Text>
-                    <Text style={styles.subtitle}>Update your preferences here</Text>
-                </View>  */}
-
                 <Profile/>
 
                 {SECTIONS.map(({header, items}) => (
@@ -93,7 +87,6 @@ const Settings = ({navigation}) => {
                     </View>
                 ))}
             </ScrollView>
-            {/* <BottomBar/> */}
         </SafeAreaView>
     )
     
