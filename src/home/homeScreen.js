@@ -40,6 +40,7 @@ const Home = ({ navigation }) => {
         </View>  
       </ScrollView>
       {/* <BottomBar /> */}
+
     </SafeAreaView>
   );
 };

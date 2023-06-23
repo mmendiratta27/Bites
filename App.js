@@ -116,20 +116,19 @@ const App = () => {
         <Stack.Screen name='Login' component={LoginScreen} />
         <Stack.Screen name='Register' component={RegisterScreen} />
         <Stack.Screen
-          options={{
-            animation: 'none',
-            headerStyle: { backgroundColor: "#F4EEE0" },
-            headerShadowVisible: false,
-            headerLeft: () => (
-              <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-            ),
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
-            ),
-            headerTitle: "Munch Hour",
-          }}
-        name='homeScreen' component={HomeScreen} />
 
+        options={{
+                  headerStyle: { backgroundColor: "#F4EEE0" },
+                  headerShadowVisible: false,
+                  headerLeft: () => (
+                    <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
+                  ),
+                  headerRight: () => (
+                    <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
+                  ),
+                  headerTitle: "Munch Hour",
+                }}
+        name='homeScreen' component={HomeScreen} />
         <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
         <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
         <Stack.Screen name='Chat' component={ChatScreen}
