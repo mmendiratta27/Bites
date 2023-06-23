@@ -44,7 +44,11 @@ export default function HomeScreen({navigation}) {
 
 
   return (
+      
       <View style={styles.container}>
+        <View >
+          <Text style={styles.title}> Group Chats</Text>
+        </View>
         <FlatList
           data={threads}
           keyExtractor={item => item._id}
@@ -70,13 +74,22 @@ export default function HomeScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
-    flex: 1
+    backgroundColor: '#F4EEE0',
+    flex: 1,
+    paddingVertical: 50,
   },
   listTitle: {
     fontSize: 22
   },
   listDescription: {
     fontSize: 16
-  }
+  },
+  title:{
+      fontSize:20,
+      alignContent: 'center',
+      fontWeight:'700',
+      color: '#1d1d1d',
+      marginBottom: 6,
+      justifyContent: 'center'
+  },
 });

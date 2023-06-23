@@ -34,7 +34,7 @@ export default function Profile() {
 
 const styles = StyleSheet.create({
     container: {
-        paddingVertical: 20,
+        paddingVertical: 0,
         flex:1,
         backgroundColor: '#F4EEE0'
 
