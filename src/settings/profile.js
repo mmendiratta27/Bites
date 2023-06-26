@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, SafeAreaView, Image } from "react-native";
-import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
+import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import { images } from "../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 

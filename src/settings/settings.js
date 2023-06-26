@@ -3,7 +3,7 @@ import { useState, useRef} from "react";
 import { icons } from "../../constants";
 import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
-import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
+import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
 
 const SECTIONS = [

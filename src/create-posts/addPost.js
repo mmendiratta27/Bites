@@ -9,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import { icons, SIZES } from "../../constants";
-import styles from "../headerInfo/welcome/welcome.style";
+import styles from "../home/headerInfo/welcome/welcome.style";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
 import * as Location from "expo-location";

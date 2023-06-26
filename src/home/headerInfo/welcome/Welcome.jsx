@@ -9,7 +9,7 @@ import {
   FlatList,
 } from "react-native";
 import styles from "./welcome.style";
-import { icons, SIZES } from "../../../constants";
+import { icons, SIZES } from "../../../../constants";
 
 
 const foodTypes = [

@@ -1,9 +1,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
-import SIZES from "../../constants";
+// import SIZES from "../../constants";
 
-import Welcome from "../headerInfo/welcome/Welcome";
+import { SIZES } from "../../constants";
+
+import Welcome from "./headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
 
 

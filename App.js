@@ -1,5 +1,5 @@
 import React from 'react';
-import ScreenHeaderBtn from "./src/headerInfo/ScreenHeaderBtn";
+import ScreenHeaderBtn from "./src/home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "./constants";
 import { NavigationContainer } from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
