@@ -163,7 +163,7 @@ export default function Chat({route}) {
 const styles = StyleSheet.create({
   sendingContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
     },
   bottomComponentContainer: {
       justifyContent: 'center',

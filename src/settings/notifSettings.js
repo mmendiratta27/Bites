@@ -51,14 +51,14 @@ const NotifSettings = ({navigation}) => {
     return(
         <SafeAreaView style={{flex:1, backgroundColor: '#F4EEE0'}}>
             <ScrollView contentContainerStyle={styles.container}>
-            <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" backgroundColor='#fff' 
+            {/* <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" backgroundColor='#fff' 
                 handlePress={() => {
                 navigation.navigate('Settings');
                 
             }}/>
                 <View style={styles.header}>
                     <Text style={styles.title}>Notifications</Text>
-                </View> 
+                </View>  */}
                 {/* change SECTIONS map with firebase backend stuff */}
                 {SECTIONS.map(({header, items}) => (
                     <View style={styles.section} key={header}>

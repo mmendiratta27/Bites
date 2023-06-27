@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
+import { View } from 'react-native';
 
 //Screens
 import MainNavigator from './src/MainNavigator';
