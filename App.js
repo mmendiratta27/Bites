@@ -11,12 +11,14 @@ import HomeScreen from './src/home/homeScreen';
 import AddPost from "./src/create-posts/addPost";
 import SettingsNav from './src/settings/settingsNav';
 import ChatNav from './src/messaging/ChatNav'
+import Login from './src/Auth/Login';
 
 const homeName = 'Home'
 const addpostName = "Add Post"
 const settingsName = 'Settings'
 const chatName ='GroupChats'
 const achName = 'Acheivements'
+
 
 const Tab = createBottomTabNavigator();
 
@@ -29,7 +31,6 @@ const App = () => {
         tabBarActiveTintColor: '#353535',
         tabBarStyle:{
           backgroundColor: '#F4EEE0'
-          
         },
         tabBarIcon: ({ focused, color, size}) => {
           let iconName;
@@ -43,9 +44,6 @@ const App = () => {
           }
           else if (rn===settingsName){
             iconName = focused? 'cog': 'cog-outline';
-          }
-          else if (rn===chatName){
-            iconName = focused? 'message-processing': 'message-processing-outline';
           }
           else if (rn===chatName){
             iconName = focused? 'message-processing': 'message-processing-outline';
