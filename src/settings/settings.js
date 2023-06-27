@@ -51,7 +51,6 @@ const Settings = ({ navigation }) => {
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
       <ScrollView contentContainerStyle={styles.container}>
         <Profile />
-
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>
             <View style={styles.sectionHeader}>
