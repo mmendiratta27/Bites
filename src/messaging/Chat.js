@@ -104,16 +104,9 @@ export default function Chat({route}) {
         return () => messagesListener();
       }, []);
 
-
-
-
-
-
   // helper method that is sends a message
   async function handleSend(messages) {
     const text = messages[0].text;
-
-
 
     firebase.firestore()
         .collection('threads')

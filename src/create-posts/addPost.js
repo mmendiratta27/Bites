@@ -19,7 +19,7 @@ import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 
 import { IconButton, Title } from 'react-native-paper';
-import { auth, db, firebase } from '../../firebase';
+import { auth, db, ab, firebase } from '../../firebase'; //ab is firebase.firestore
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
@@ -36,12 +36,6 @@ const MapComponent = ({ navigation }) => {
     }
   }, []);
 
-  //   const handleSearch = () => {
-  //     if (searchTerm) {
-  //       router.push(`/search/${searchTerm}`);
-  //     }
-  //   };
-
   const mapRef = useRef(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -56,36 +50,49 @@ const MapComponent = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
 
-function handleButtonPress() {
-  if (restaurant.length > 0) {
-    firebase.firestore()
-      .collection('threads')
-      .add({
-        name: restaurant,
-        latestMessage: {
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime()
-        }
-      })
-      .then(docRef => {
-        docRef.collection('messages').add({
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime(),
-          system: true
+  function handleButtonPress() {
+    if (restaurant.length > 0) {
+      ab()
+        .collection('threads')
+        .add({
+          name: restaurant,
+          latestMessage: {
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime()
+          }
+        })
+        .then(docRef => {
+          docRef.collection('messages').add({
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime(),
+            system: true
+          });
+          navigation.navigate('homeScreen');
         });
-        navigation.navigate('homeScreen');
-      });
+    }
   }
-}
 
-
-
-
-
-
-
-
-
+  function handleButtonPress() {
+    if (restaurant.length > 0) {
+      ab()
+        .collection('posts')
+        .add({
+          restaurant,
+          hour,
+          minute,
+          isAM,
+          link,
+          nearestAddress,
+          searchValue,
+          comments,
+          uid: firebase.auth().currentUser.uid, // user who created the post
+          createdAt: new Date().getTime(),
+        })
+        .then(() => {
+          navigation.navigate('homeScreen');
+        });
+    }
+  }
 
   const handleToggle = () => {
     setIsAM(!isAM);
@@ -155,11 +162,6 @@ function handleButtonPress() {
     }
   };
 
-//  const handleSubmit = async () => {
-//    // router.push(`/`);
-//    navigation.navigate("homeScreen");
-//  };
-
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -167,7 +169,7 @@ function handleButtonPress() {
       keyboardVerticalOffset={100}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
-        {/* <SafeAreaView
+        <SafeAreaView
           options={{
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
@@ -180,7 +182,7 @@ function handleButtonPress() {
             ),
             headerTitle: "Add Post",
           }}
-        /> */}
+        />
 
         <ScrollView>
           <View style={{ flex: 1, padding: SIZES.medium }}>
@@ -192,7 +194,7 @@ function handleButtonPress() {
                     labelName='Restaurant'
                     value={restaurant}
                     clearButtonMode='while-editing'
-                    style={{ color: "black" }}
+                    style={{ color: "black", height: 40, width: '100%' }}
                     onChangeText={(text) => setRestaurant(text)}
                   />
                 </View>
@@ -207,7 +209,7 @@ function handleButtonPress() {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black" }}
+                    style={{ color: "black", height: 40, width: '100%' }}
                     value={hour}
                     placeholder="Hour"
                     placeholderTextColor={"gray"}
@@ -217,12 +219,13 @@ function handleButtonPress() {
                 <Text style={styles.separator}>:</Text>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black" }}
+                    style={{ color: "black", height: 40, width: '100%' }}
                     placeholder="Minute"
                     placeholderTextColor={"gray"}
                     value={minute}
                     onChangeText={(text) => setMinute(text)}
                   />
+
                 </View>
 
                 <View style={styles.toggleContainer}>
@@ -261,10 +264,11 @@ function handleButtonPress() {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black" }}
+                    style={{ color: "black", height: 40, width: '100%' }}
                     value={link}
                     onChangeText={(text) => setLink(text)}
                   />
+
                 </View>
               </View>
             </View>
@@ -306,7 +310,7 @@ function handleButtonPress() {
                 }}
               >
                 <TextInput
-                  style={{ color: "black" }}
+                  style={{ color: "black", height: 40, width: '100%' }}
                   value={searchValue}
                   onChangeText={(text) => setSearchValue(text)}
                 />
@@ -332,9 +336,9 @@ function handleButtonPress() {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black" }}
+                    style={{ color: "black", height: 40, width: '100%' }}
                     value={comments}
-                    onChangeText={(text) => setLink(setComments)}
+                    onChangeText={(text) => setComments(text)}
                   />
                 </View>
               </View>

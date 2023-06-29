@@ -1,18 +1,8 @@
 {
-  "hostType": "tunnel",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
   "minify": false,
-<<<<<<< HEAD
-  "urlRandomness": "pa-z73",
-=======
-<<<<<<< HEAD
-  "urlRandomness": "v5-bpn",
-=======
-  "urlRandomness": "y4-x8n",
->>>>>>> b7d9a72a2deb36fa2a88334f678f5253599d69bf
->>>>>>> 3567d98e3eb2870f47a906e249d32e5007f8af18
-  "https": false,
-  "scheme": null,
-  "devClient": false
+  "urlRandomness": null,
+  "https": false
 }
