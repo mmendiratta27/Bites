@@ -1,39 +1,57 @@
-import React, { useContext, useEffect, useState, useCallback, useLayoutEffect } from 'react';
-import { View, StyleSheet, Button, Text, FlatList, TouchableOpacity } from 'react-native';
-import { Title, IconButton, List, Divider } from 'react-native-paper';
-import { auth, db, firebase } from '../../firebase';
-import { Avatar } from 'react-native-elements';
-import { signOut } from 'firebase/auth';
-import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { GiftedChat } from 'react-native-gifted-chat';
+import React, {
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+  useLayoutEffect,
+} from "react";
+import {
+  View,
+  StyleSheet,
+  Button,
+  Text,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
+import { Title, IconButton, List, Divider } from "react-native-paper";
+import { auth, db, firebase } from "../../firebase";
+import { Avatar } from "react-native-elements";
+import { signOut } from "firebase/auth";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
+import { GiftedChat } from "react-native-gifted-chat";
 
-
-
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
   const Home = () => {
-      navigation.replace('homeScreen');
-      }
+    navigation.replace("homeScreen");
+  };
 
   useLayoutEffect(() => {
-    const unsubscribe = firebase.firestore()
-      .collection('threads')
-      .orderBy('latestMessage.createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
-        const threads = querySnapshot.docs.map(documentSnapshot => {
+    const unsubscribe = firebase
+      .firestore()
+      .collection("threads")
+      .orderBy("latestMessage.createdAt", "desc")
+      .onSnapshot((querySnapshot) => {
+        const threads = querySnapshot.docs.map((documentSnapshot) => {
           return {
             _id: documentSnapshot.id,
             // give defaults
-            name: '',
+            name: "",
             latestMessage: {
-                text: ''
-              },
-            ...documentSnapshot.data()
+              text: "",
+            },
+            ...documentSnapshot.data(),
           };
         });
 
         setThreads(threads);
-
       });
 
     /**
@@ -42,41 +60,65 @@ export default function HomeScreen({navigation}) {
     return () => unsubscribe();
   }, []);
 
-
   return (
-      <View style={styles.container}>
-        <FlatList
-          data={threads}
-          keyExtractor={item => item._id}
-          ItemSeparatorComponent={() => <Divider />}
-          renderItem={({ item }) => (
+    <View style={styles.container}>
+      <FlatList
+        data={threads}
+        keyExtractor={(item) => item._id}
+        ItemSeparatorComponent={() => <Divider />}
+        renderItem={({ item }) => (
+          <View style={styles.cardContainer}>
             <TouchableOpacity
-               onPress={() => navigation.navigate('Chat', { thread: item })}
-             >
-            <List.Item
-              title={item.name}
-              description={item.latestMessage.text}
-              titleNumberOfLines={1}
-              titleStyle={styles.listTitle}
-              descriptionStyle={styles.listDescription}
-              descriptionNumberOfLines={1}
-            />
+              style={styles.card}
+              resizeMode="contain"
+              onPress={() => navigation.navigate("Chat", { thread: item })}
+            >
+              <Text style={styles.listTitle}>{item.name}</Text>
+              <Text style={styles.listDescription}>
+                {item.latestMessage.text}
+              </Text>
             </TouchableOpacity>
-          )}
-        />
-      </View>
-    );
+          </View>
+        )}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f5f5f5',
-    flex: 1
+    backgroundColor: "#F4EEE0",
+    flex: 1,
+  },
+  cardContainer: {
+    backgroundColor: "#F4EEE0",
+    padding: 15,
   },
   listTitle: {
-    fontSize: 22
+    fontSize: 20,
+    fontWeight: "500",
+    color: "#000",
   },
   listDescription: {
-    fontSize: 16
-  }
+    paddingTop: 5,
+    fontSize: 16,
+    color: "gray",
+  },
+  title: {
+    fontSize: 20,
+    alignContent: "center",
+    fontWeight: "500",
+    color: "#1d1d1d",
+    marginBottom: 6,
+    justifyContent: "center",
+  },
+  card: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "left",
+    flexDirection: "column",
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: "#fffceb",
+  },
 });

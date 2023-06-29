@@ -1,9 +1,6 @@
-import React, { useCallback, useState, useLayoutEffect, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import React, { useState, useLayoutEffect} from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import { auth, db, firebase } from '../../firebase';
-import { signOut } from 'firebase/auth';
-import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat, Bubble, Send, SystemMessage } from 'react-native-gifted-chat';
 import { IconButton } from 'react-native-paper';
 
@@ -159,7 +156,7 @@ export default function Chat({route}) {
 const styles = StyleSheet.create({
   sendingContainer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
     },
   bottomComponentContainer: {
       justifyContent: 'center',

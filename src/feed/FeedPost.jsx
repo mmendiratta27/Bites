@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
 import styles from "./FeedPost.style";
 import { BottomPopup } from "./../post-details/BottomPopup";
 import { useNavigation } from '@react-navigation/native';

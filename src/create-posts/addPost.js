@@ -1,25 +1,22 @@
-import React, { useState, useEffect, useRef, useCallback, useLayoutEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TextInput,
-  Button,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
   Image,
 } from "react-native";
-import { COLORS, icons, images, SIZES } from "../../constants";
-import ScreenHeaderBtn from "../headerInfo/ScreenHeaderBtn";
-import styles from "../headerInfo/welcome/welcome.style";
+import { icons, SIZES } from "../../constants";
+import styles from "../home/headerInfo/welcome/welcome.style";
 import { KeyboardAvoidingView, Platform } from "react-native";
 
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 
 import { IconButton, Title } from 'react-native-paper';
-import { auth, db, ab, firebase } from '../../firebase'; //ab is firebase.firestore
+import { auth, db, firebase } from '../../firebase';
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
@@ -72,27 +69,14 @@ const MapComponent = ({ navigation }) => {
     }
   }
 
-  function handleButtonPress() {
-    if (restaurant.length > 0) {
-      ab()
-        .collection('posts')
-        .add({
-          restaurant,
-          hour,
-          minute,
-          isAM,
-          link,
-          nearestAddress,
-          searchValue,
-          comments,
-          uid: firebase.auth().currentUser.uid, // user who created the post
-          createdAt: new Date().getTime(),
-        })
-        .then(() => {
-          navigation.navigate('homeScreen');
-        });
-    }
-  }
+
+
+
+
+
+
+
+
 
   const handleToggle = () => {
     setIsAM(!isAM);

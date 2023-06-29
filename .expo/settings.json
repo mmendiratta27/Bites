@@ -3,6 +3,13 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
+<<<<<<< HEAD
   "urlRandomness": null,
   "https": false
+=======
+  "urlRandomness": "2h-g9q",
+  "https": false,
+  "scheme": null,
+  "devClient": false
+>>>>>>> origin/main
 }
