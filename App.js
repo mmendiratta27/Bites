@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ScreenHeaderBtn from "./src/home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "./constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
-import { View } from "react-native";
+import { View, Appearance } from "react-native";
 
 //Screens
 import MainNavigator from "./src/MainNavigator";
@@ -22,6 +22,8 @@ const achName = "Acheivements";
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [theme, setTheme] = useState("dark");
+
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
@@ -29,9 +31,14 @@ const App = () => {
           name="Login"
           component={Login}
           options={{
-            headerStyle: { backgroundColor: "#F4EEE0" },
+            headerStyle: {
+              backgroundColor: theme === "light" ? "#F4EEE0" : "#000",
+            },
             headerShadowVisible: false,
             headerTitle: "Login",
+            headerTitleStyle: {
+              color: theme === "dark" ? "white" : "#353535",
+            },
           }}
         />
         <Stack.Screen

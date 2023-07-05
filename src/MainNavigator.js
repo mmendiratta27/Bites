@@ -18,7 +18,7 @@ const homeName = 'Home'
 const addpostName = "Add Post"
 const settingsName = 'Settings'
 const chatName ='GroupChats'
-const achName = 'Acheivements'
+const achName = 'Achievements'
 
 
 const Tab = createBottomTabNavigator();

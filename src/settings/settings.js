@@ -11,6 +11,7 @@ import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 const SECTIONS = [
   {
@@ -86,6 +87,8 @@ const Settings = ({ navigation }) => {
                           onValueChange={(value) =>
                             setForm({ ...form, [id]: value })
                           }
+                          trackColor={{ false: "#353535", true: "#353535" }}
+                          thumbColor={form[id] ? "#f4f3f4" : "#f4f3f4"}
                         />
                       )}
 
@@ -95,11 +98,7 @@ const Settings = ({ navigation }) => {
                         // color="#ababab"
                         // size={22}
                         // />
-                        <ScreenHeaderBtn
-                          iconUrl={icons.chevronRight}
-                          dimension="60%"
-                          backgroundColor="#fff"
-                        />
+                        <Icon name="chevron-right" size={30} color="#353535" />
                       )}
                     </View>
                   </TouchableOpacity>
