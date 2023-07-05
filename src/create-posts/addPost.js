@@ -16,7 +16,7 @@ import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 
 import { IconButton, Title } from 'react-native-paper';
-import { auth, db, ab, firebase } from '../../firebase'; //ab is firebase.firestore
+import { auth, db, firebase } from '../../firebase';
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
@@ -32,6 +32,12 @@ const MapComponent = ({ navigation }) => {
       scrollViewRef.current.scrollTo({ y: 0, animated: true });
     }
   }, []);
+
+  //   const handleSearch = () => {
+  //     if (searchTerm) {
+  //       router.push(`/search/${searchTerm}`);
+  //     }
+  //   };
 
   //   const handleSearch = () => {
   //     if (searchTerm) {
@@ -75,27 +81,14 @@ function handleButtonPress() {
   }
 }
 
-  function handleButtonPress() {
-    if (restaurant.length > 0) {
-      ab()
-        .collection('posts')
-        .add({
-          restaurant,
-          hour,
-          minute,
-          isAM,
-          link,
-          nearestAddress,
-          searchValue,
-          comments,
-          uid: firebase.auth().currentUser.uid, // user who created the post
-          createdAt: new Date().getTime(),
-        })
-        .then(() => {
-          navigation.navigate('homeScreen');
-        });
-    }
-  }
+
+
+
+
+
+
+
+
 
   const handleToggle = () => {
     setIsAM(!isAM);
