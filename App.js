@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import ScreenHeaderBtn from "./src/home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "./constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
-import { View } from "react-native";
+import { View, Appearance } from "react-native";
 
 //Screens
 import MainNavigator from "./src/MainNavigator";
@@ -22,44 +22,44 @@ const achName = "Acheivements";
 const Stack = createStackNavigator();
 
 const App = () => {
+  const [theme, setTheme] = useState("dark");
+
   return (
     <NavigationContainer independent={true}>
       <Stack.Navigator>
         <Stack.Screen
-        options={{
-                  headerStyle: { backgroundColor: "#F4EEE0" },
-                  headerShadowVisible: false,
-                  headerLeft: () => (
-                    <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-                  ),
-                  headerRight: () => (
-                    <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
-                  ),
-                  headerTitle: "Munch Hour",
-                }}
-        name='homeScreen' component={HomeScreen} />
-        <Stack.Screen name = 'Settings' component = {Settings} options={{ headerShown: false}}/>
-        <Stack.Screen name='notifSettings' component={NotifSettings} options={{headerShown: false}}/>
-        <Stack.Screen name='Chat' component={ChatScreen}
-        options={({ route }) => ({ title: route.params.thread.name })}
+          name="Login"
+          component={Login}
+          options={{
+            headerStyle: {
+              backgroundColor: theme === "light" ? "#F4EEE0" : "#000",
+            },
+            headerShadowVisible: false,
+            headerTitle: "Login",
+            headerTitleStyle: {
+              color: theme === "dark" ? "white" : "#353535",
+            },
+          }}
         />
         <Stack.Screen
-                  name="AddPost"
-                  component={AddPost}
-                  options={({ navigation }) => ({
-                    headerStyle: { backgroundColor: "#F4EEE0" },
-                    headerShadowVisible: false,
-                    headerLeft: () => (
-                      <ScreenHeaderBtn
-                        iconUrl={icons.left}
-                        dimension="60%"
-                        handlePress={() => navigation.navigate("homeScreen")}
-                      />
-                    ),
-                    headerTitle: "Add Post",
-                  })}
-                />
-
+          name="Register"
+          component={Register}
+          options={{
+            headerStyle: { backgroundColor: "#F4EEE0" },
+            headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ marginLeft: 10 }}>
+                <Icon name="chevron-left" size={30} color="#353535" />
+              </View>
+            ),
+            headerTitle: "Create Account",
+          }}
+        />
+        <Stack.Screen
+          name="MainNavigator"
+          component={MainNavigator}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

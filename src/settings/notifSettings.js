@@ -4,6 +4,9 @@ import { icons } from "../../constants";
 import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
+import Icons from "react-native-vector-icons/MaterialIcons";
+
+
 const SECTIONS = [
     {
         header: 'Distance',
@@ -48,10 +51,10 @@ const NotifSettings = ({navigation}) => {
         language: 'English',
         darkMode: false,
     })
-    return(
-        <SafeAreaView style={{flex:1, backgroundColor: '#F4EEE0'}}>
-            <ScrollView contentContainerStyle={styles.container}>
-            {/* <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" backgroundColor='#fff' 
+    return (
+      <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
+        <ScrollView contentContainerStyle={styles.container}>
+          {/* <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" backgroundColor='#fff' 
                 handlePress={() => {
                 navigation.navigate('Settings');
                 
@@ -59,59 +62,71 @@ const NotifSettings = ({navigation}) => {
                 <View style={styles.header}>
                     <Text style={styles.title}>Notifications</Text>
                 </View>  */}
-                {/* change SECTIONS map with firebase backend stuff */}
-                {SECTIONS.map(({header, items}) => (
-                    <View style={styles.section} key={header}>
-                        <View style={styles.sectionHeader}>
-                            <Text style={styles.sectionHeaderText}>{header}</Text>
-                        </View>
+          {/* change SECTIONS map with firebase backend stuff */}
+          {SECTIONS.map(({ header, items }) => (
+            <View style={styles.section} key={header}>
+              <View style={styles.sectionHeader}>
+                <Text style={styles.sectionHeaderText}>{header}</Text>
+              </View>
 
-                        <View style={styles.sectionBody}>
-                            {items.map(({ label, id, type }, index) =>(
-                                <View 
-                                style={[
-                                    styles.rowWrapper,
-                                    index===0 && {borderTopWidth: 0},]} key = {id}>
-                                    
-                                    <TouchableOpacity onPress={()=>{handlePress()}}> 
-                                        <View style={styles.row}>
-                                            <Text style={styles.rowLabel}>{label}</Text>
+              <View style={styles.sectionBody}>
+                {items.map(({ label, id, type }, index) => (
+                  <View
+                    style={[
+                      styles.rowWrapper,
+                      index === 0 && { borderTopWidth: 0 },
+                    ]}
+                    key={id}
+                  >
+                    <TouchableOpacity
+                      onPress={() => {
+                        handlePress();
+                      }}
+                    >
+                      <View style={styles.row}>
+                        <Text style={styles.rowLabel}>{label}</Text>
 
-                                            <View style={styles.rowSpacer} />
+                        <View style={styles.rowSpacer} />
 
-                                            {type ==="toggle"&& (
-                                                <Switch
-                                                    value={form[id]}
-                                                    onValueChange={value => setForm({...form, [id]:value})}
-                                                />
-                                            )}
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            ))}
-                            {header === 'Restaurants' &&(
-                                <View 
-                                style={[
-                                    styles.rowWrapper,
-                                    ]}>
-                                    {/* handleOnPress w backend*/}
-                                    <TouchableOpacity onPress={()=>{newRest()}}> 
-                                        <View style={styles.row}>
-                                            <Text style={styles.rowLabel}>Add Another Restaurant</Text>
-
-                                            <View style={styles.rowSpacer} />
-                                            <ScreenHeaderBtn iconUrl={icons.add} dimension="60%" backgroundColor='#fff'/>
-                                        </View>
-                                        
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        </View>
-                    </View>
+                        {type === "toggle" && (
+                          <Switch
+                            value={form[id]}
+                            onValueChange={(value) =>
+                              setForm({ ...form, [id]: value })
+                            }
+                            trackColor={{ false: "#353535", true: "#353535" }}
+                            thumbColor={form[id] ? "#f4f3f4" : "#f4f3f4"}
+                          />
+                        )}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 ))}
-            </ScrollView>
-        </SafeAreaView>
-    )
+                {header === "Restaurants" && (
+                  <View style={[styles.rowWrapper]}>
+                    {/* handleOnPress w backend*/}
+                    <TouchableOpacity
+                      onPress={() => {
+                        newRest();
+                      }}
+                    >
+                      <View style={styles.row}>
+                        <Text style={styles.rowLabel}>
+                          Add Another Restaurant
+                        </Text>
+
+                        <View style={styles.rowSpacer} />
+                        <Icons name="add-box" size={25} color="#353535" />
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+      </SafeAreaView>
+    );
     
 }
 

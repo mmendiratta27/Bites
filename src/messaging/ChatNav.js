@@ -27,7 +27,6 @@ const ChatNav= ({navigation}) => {
             component={ChatScreen}
             options={({ route }) => ({
               title: route.params.thread.name,
-              headerStyle: { backgroundColor: "#F4EEE0" },
               headerShadowVisible: false,
               headerTitle: "TestChat1",
               headerLeft: () => (
