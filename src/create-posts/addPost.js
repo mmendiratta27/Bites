@@ -33,18 +33,6 @@ const MapComponent = ({ navigation }) => {
     }
   }, []);
 
-  //   const handleSearch = () => {
-  //     if (searchTerm) {
-  //       router.push(`/search/${searchTerm}`);
-  //     }
-  //   };
-
-  //   const handleSearch = () => {
-  //     if (searchTerm) {
-  //       router.push(`/search/${searchTerm}`);
-  //     }
-  //   };
-
   const mapRef = useRef(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [searchValue, setSearchValue] = useState("");
