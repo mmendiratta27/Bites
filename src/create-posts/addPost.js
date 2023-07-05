@@ -17,6 +17,7 @@ import MapView, { Marker } from "react-native-maps";
 
 import { IconButton, Title } from 'react-native-paper';
 import { auth, db, firebase } from '../../firebase';
+import { auth, db, firebase } from '../../firebase';
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
@@ -33,6 +34,12 @@ const MapComponent = ({ navigation }) => {
     }
   }, []);
 
+  //   const handleSearch = () => {
+  //     if (searchTerm) {
+  //       router.push(`/search/${searchTerm}`);
+  //     }
+  //   };
+
   const mapRef = useRef(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [searchValue, setSearchValue] = useState("");
@@ -47,27 +54,35 @@ const MapComponent = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
 
-  function handleButtonPress() {
-    if (restaurant.length > 0) {
-      ab()
-        .collection('threads')
-        .add({
-          name: restaurant,
-          latestMessage: {
-            text: `You have joined ${restaurant}.`,
-            createdAt: new Date().getTime()
-          }
-        })
-        .then(docRef => {
-          docRef.collection('messages').add({
-            text: `You have joined ${restaurant}.`,
-            createdAt: new Date().getTime(),
-            system: true
-          });
-          navigation.navigate('homeScreen');
+function handleButtonPress() {
+  if (restaurant.length > 0) {
+    firebase.firestore()
+      .collection('threads')
+      .add({
+        name: restaurant,
+        latestMessage: {
+          text: `You have joined ${restaurant}.`,
+          createdAt: new Date().getTime()
+        }
+      })
+      .then(docRef => {
+        docRef.collection('messages').add({
+          text: `You have joined ${restaurant}.`,
+          createdAt: new Date().getTime(),
+          system: true
         });
-    }
+        navigation.navigate('homeScreen');
+      });
   }
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -146,6 +161,11 @@ const MapComponent = ({ navigation }) => {
     }
   };
 
+//  const handleSubmit = async () => {
+//    // router.push(`/`);
+//    navigation.navigate("homeScreen");
+//  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -153,7 +173,7 @@ const MapComponent = ({ navigation }) => {
       keyboardVerticalOffset={100}
     >
       <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
-        <SafeAreaView
+        {/* <SafeAreaView
           options={{
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
@@ -166,7 +186,7 @@ const MapComponent = ({ navigation }) => {
             ),
             headerTitle: "Add Post",
           }}
-        />
+        /> */}
 
         <ScrollView>
           <View style={{ flex: 1, padding: SIZES.medium }}>
@@ -178,7 +198,7 @@ const MapComponent = ({ navigation }) => {
                     labelName='Restaurant'
                     value={restaurant}
                     clearButtonMode='while-editing'
-                    style={{ color: "black", height: 40, width: '100%' }}
+                    style={{ color: "black" }}
                     onChangeText={(text) => setRestaurant(text)}
                   />
                 </View>
@@ -193,7 +213,7 @@ const MapComponent = ({ navigation }) => {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black", height: 40, width: '100%' }}
+                    style={{ color: "black" }}
                     value={hour}
                     placeholder="Hour"
                     placeholderTextColor={"gray"}
@@ -203,13 +223,12 @@ const MapComponent = ({ navigation }) => {
                 <Text style={styles.separator}>:</Text>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black", height: 40, width: '100%' }}
+                    style={{ color: "black" }}
                     placeholder="Minute"
                     placeholderTextColor={"gray"}
                     value={minute}
                     onChangeText={(text) => setMinute(text)}
                   />
-
                 </View>
 
                 <View style={styles.toggleContainer}>
@@ -248,11 +267,10 @@ const MapComponent = ({ navigation }) => {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black", height: 40, width: '100%' }}
+                    style={{ color: "black" }}
                     value={link}
                     onChangeText={(text) => setLink(text)}
                   />
-
                 </View>
               </View>
             </View>
@@ -294,7 +312,7 @@ const MapComponent = ({ navigation }) => {
                 }}
               >
                 <TextInput
-                  style={{ color: "black", height: 40, width: '100%' }}
+                  style={{ color: "black" }}
                   value={searchValue}
                   onChangeText={(text) => setSearchValue(text)}
                 />
@@ -320,9 +338,9 @@ const MapComponent = ({ navigation }) => {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    style={{ color: "black", height: 40, width: '100%' }}
+                    style={{ color: "black" }}
                     value={comments}
-                    onChangeText={(text) => setComments(text)}
+                    onChangeText={(text) => setLink(setComments)}
                   />
                 </View>
               </View>

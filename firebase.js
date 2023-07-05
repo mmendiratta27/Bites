@@ -22,10 +22,9 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 const db = initializeFirestore(app, {experimentalForceLongPolling: true});
-const ab = firebase.firestore;
 
 if (!firebase.apps.length) {
 firebase.initializeApp(firebaseConfig)
 }
 
-export { ab, db, auth, firebase };
+export { db, auth, firebase };

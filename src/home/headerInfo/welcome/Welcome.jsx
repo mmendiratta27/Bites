@@ -13,8 +13,8 @@ import { icons, SIZES } from "../../../../constants";
 
 
 const foodTypes = [
-  "Kenyan Food",
   "Asian Food",
+  "Kenyan Food",
   "Mexican Food",
   "Fast Food",
   "Boba",

@@ -42,21 +42,6 @@ const styles = StyleSheet.create({
     marginTop: 3,
     textTransform: "capitalize",
   },
-  textWhite: {
-    color: COLORS.white,
-  },
-  joinButton: {
-    backgroundColor: "#75AAF0", // light blue color
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  
-  joinButtonText: {
-    color: "#fff",
-    textAlign: "center",
-  },
-  
 });
 
 export default styles;
