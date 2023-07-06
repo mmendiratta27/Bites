@@ -11,7 +11,7 @@ import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/Feather";
 
 const SECTIONS = [
   {
@@ -74,6 +74,7 @@ const Settings = ({ navigation }) => {
                     }}
                   >
                     <View style={styles.row}>
+                      <Icon name = {icon} size={20} style={styles.icons}/>
                       <Text style={styles.rowLabel}>{label}</Text>
 
                       <View style={styles.rowSpacer} />
@@ -93,11 +94,6 @@ const Settings = ({ navigation }) => {
                       )}
 
                       {["select", "link"].includes(type) && (
-                        // <FeatherIcon
-                        // name='chevron-right'
-                        // color="#ababab"
-                        // size={22}
-                        // />
                         <Icon name="chevron-right" size={30} color="#353535" />
                       )}
                     </View>

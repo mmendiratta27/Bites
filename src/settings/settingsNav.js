@@ -27,16 +27,17 @@ const SettingsNav= ({navigation}) => {
             options={{
               headerStyle: { backgroundColor: "#F4EEE0" },
               headerShadowVisible: false,
-              headerLeft: () => (
-                <View style={{ marginLeft: 10 }}>
-                  <Icon
-                    name="chevron-left"
-                    size={30}
-                    color="#353535"
-                    onPress={() => navigation.navigate("Settings")}
-                  />
-                </View>
-              ),
+              headerTintColor: '#353535',
+              // headerLeft: () => (
+              //   <View style={{ marginLeft: 10 }}>
+              //     <Icon
+              //       name="chevron-left"
+              //       size={30}
+              //       color="#353535"
+              //       onPress={() => navigation.navigate("Settings")}
+              //     />
+              //   </View>
+              // ),
               headerTitle: "Notifications",
             }}
           />
