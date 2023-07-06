@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 
-import { COLORS, FONT, SIZES } from "../../../../constants";
+import { COLORS, SIZES } from "../../../../constants";
 
 
 const styles = StyleSheet.create({
@@ -9,12 +9,12 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   userName: {
-    fontFamily: FONT.regular,
+    // fontFamily: FONT.regular,
     fontSize: SIZES.large,
     color: "#353535",
   },
   welcomeMessage: {
-    fontFamily: FONT.bold,
+    // fontFamily: FONT.bold,
     fontSize: SIZES.xLarge,
     color: "#353535",
     marginTop: 2,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   searchInput: {
-    fontFamily: FONT.regular,
+    // fontFamily: FONT.regular,
     width: "100%",
     height: "100%",
     paddingHorizontal: SIZES.medium,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     borderColor: activeJobType === item ? COLORS.secondary : COLORS.gray2,
   }),
   tabText: (activeJobType, item) => ({
-    fontFamily: FONT.medium,
+    // fontFamily: FONT.medium,
     color: activeJobType === item ? COLORS.secondary : COLORS.gray2,
   }),
   separator: {

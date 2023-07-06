@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../../constants";
+import Icons from "react-native-vector-icons/MaterialIcons";
 
 
 const foodTypes = [
@@ -54,10 +55,10 @@ const Welcome = () => {
 
 
           <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
-            <Image
-              source={icons.search}
-              resizeMode="contain"
-              style={styles.searchBtnImage}
+            <Icons
+              name='search'
+              color="#F4EEE0"
+              size={27}
             />
           </TouchableOpacity>
         </View>

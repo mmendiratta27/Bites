@@ -19,7 +19,7 @@ const ChatNav= ({navigation}) => {
             options={{
               headerStyle: { backgroundColor: "#F4EEE0" },
               headerShadowVisible: false,
-              headerTitle: "Group Chats",
+              headerTitle: "GroupChats",
             }}
           />
           <Stack.Screen
@@ -29,16 +29,17 @@ const ChatNav= ({navigation}) => {
               title: route.params.thread.name,
               headerShadowVisible: false,
               headerTitle: "TestChat1",
-              headerLeft: () => (
-                <View style={{ marginLeft: 10 }}>
-                  <Icon
-                    name="chevron-left"
-                    size={30}
-                    color="#353535"
-                    onPress={() => navigation.navigate("GroupChats")}
-                  />
-                </View>
-              ),
+              headerTintColor: '#353535',
+              // headerLeft: () => (
+              //   <View style={{ marginLeft: 10 }}>
+              //     <Icon
+              //       name="chevron-left"
+              //       size={30}
+              //       color="#353535"
+              //       onPress={() => navigation.navigate("GroupChats")}
+              //     />
+              //   </View>
+              // ),
             })}
           />
         </Stack.Navigator>

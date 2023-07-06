@@ -11,6 +11,7 @@ import {
 import { icons, SIZES } from "../../constants";
 import styles from "../home/headerInfo/welcome/welcome.style";
 import { KeyboardAvoidingView, Platform } from "react-native";
+import Icons from "react-native-vector-icons/MaterialIcons";
 
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
@@ -313,10 +314,10 @@ function handleButtonPress() {
                 style={styles.searchBtn}
                 onPress={handleSearchButtonClick}
               >
-                <Image
-                  source={icons.search}
-                  resizeMode="contain"
-                  style={styles.searchBtnImage}
+                <Icons
+                  name='search'
+                  color="#F4EEE0"
+                  size={27}
                 />
               </TouchableOpacity>
             </View>
