@@ -12,6 +12,7 @@ import HomeScreen from './home/homeScreen';
 import AddPost from "./create-posts/addPost";
 import SettingsNav from './settings/settingsNav';
 import ChatNav from './messaging/ChatNav'
+import Achievement from './Achievements/Achievement';
 
 const homeName = 'Home'
 const addpostName = "Add Post"
@@ -77,12 +78,11 @@ const MainNavigator = () => {
         />
         <Tab.Screen
           name={achName}
-          component={SettingsNav}
+          component={Achievement}
           options={{
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
             headerTitle: "Acheivements",
-            headerShown: false,
           }}
         />
         <Tab.Screen
