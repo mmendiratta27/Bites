@@ -12,6 +12,7 @@ import styles from "./settings.styles";
 import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
 import Icon from "react-native-vector-icons/Feather";
+import email from 'react-native-email'
 
 const SECTIONS = [
   {
@@ -41,8 +42,22 @@ const Settings = ({ navigation }) => {
   const handlePress = (id) => {
     if (id === "notifications") {
       navigation.navigate("notifSettings");
+    }else if (id === "contact"){
+      handleEmail()
     }
   };
+
+  const handleEmail = () => {
+    const to = ['grouporder.ssu@gmail.com'] // string or array of email addresses
+        email(to, {
+            // Optional additional arguments
+            // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
+            // bcc: 'mee@mee.com', // string or array of email addresses
+            // subject: 'Show how to use',
+            // body: 'Some body right here',
+            checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
+        }).catch(console.error)
+  }
 
   const [form, setForm] = useState({
     language: "English",
