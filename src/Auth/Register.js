@@ -3,12 +3,15 @@ import { View, StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import darkMode from "./styles/darkMode";
+
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [avatar, setAvatar] = useState("");
+  const [theme, setTheme] = useState("light");
 
   const register = () => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -36,18 +39,22 @@ const Register = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={theme == "light" ? styles.container : darkMode.container}>
       <Input
         placeholder="Enter your name"
         label="Name"
         value={name}
         onChangeText={(text) => setName(text)}
+        labelStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
+        inputStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
       />
       <Input
         placeholder="Enter your email"
         label="Email"
         value={email}
         onChangeText={(text) => setEmail(text)}
+        labelStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
+        inputStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
       />
       <Input
         placeholder="Enter your password"
@@ -55,14 +62,23 @@ const Register = () => {
         value={password}
         onChangeText={(text) => setPassword(text)}
         secureTextEntry
+        labelStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
+        inputStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
       />
       <Input
         placeholder="Enter your image url"
         label="Profile Picture"
         value={avatar}
         onChangeText={(text) => setAvatar(text)}
+        labelStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
+        inputStyle={theme == "dark" ? styles.textColor : darkMode.textColor}
       />
-      <Button title="Register" onPress={register} buttonStyle={styles.button} />
+      <Button
+        title="Register"
+        onPress={register}
+        titleStyle={theme == "light" ? styles.textColor : darkMode.textColor}
+        buttonStyle={theme == "light" ? styles.register : darkMode.register}
+      />
     </View>
   );
 };
@@ -71,13 +87,25 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     padding: 10,
-    // marginTop: 100,
     backgroundColor: "#F4EEE0",
   },
-  button: {
-    width: 370,
+  placeholder: {
+    alignItems: "top",
+    padding: 80,
+    backgroundColor: "#F4EEE0",
+  },
+  signin: {
+    width: 350,
     marginTop: 10,
     backgroundColor: "#353535",
+  },
+  register: {
+    width: 350,
+    marginTop: 10,
+    backgroundColor: "#353535",
+  },
+  textColor: {
+    color: "#F4EEE0",
   },
 });
 

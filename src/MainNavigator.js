@@ -1,25 +1,23 @@
-import React from 'react';
 import ScreenHeaderBtn from "./home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "../constants";
-import { NavigationContainer } from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
-import { View } from 'react-native';
+import { View } from "react-native";
 
 //Screens
-import HomeScreen from './home/homeScreen';
+import HomeScreen from "./home/homeScreen";
 import AddPost from "./create-posts/addPost";
-import SettingsNav from './settings/settingsNav';
-import ChatNav from './messaging/ChatNav'
-import Login from './Auth/Login';
+import SettingsNav from "./settings/settingsNav";
+import ChatNav from "./messaging/ChatNav";
+import Login from "./Auth/Login";
 
-const homeName = 'Home'
-const addpostName = "Add Post"
-const settingsName = 'Settings'
-const chatName ='GroupChats'
-const achName = 'Achievements'
-
+const homeName = "Home";
+const addpostName = "Add Post";
+const settingsName = "Settings";
+const chatName = "GroupChats";
+const achName = "Achievements";
 
 const Tab = createBottomTabNavigator();
 
@@ -61,7 +59,9 @@ const MainNavigator = () => {
           component={HomeScreen}
           options={{
             animation: "none",
-            headerStyle: { backgroundColor: "#F4EEE0" },
+            headerStyle: {
+              backgroundColor: "#F4EEE0",
+            },
             headerShadowVisible: false,
             headerLeft: () => (
               <View style={{ marginLeft: 10 }}>
@@ -73,7 +73,7 @@ const MainNavigator = () => {
                 <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
               </View>
             ),
-            headerTitle: "GroupBites",
+            headerTitle: "Group Order",
           }}
         />
         <Tab.Screen

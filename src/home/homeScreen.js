@@ -1,18 +1,14 @@
-
 import { useState, useRef, useEffect } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
-// import SIZES from "../../constants";
-
 import { SIZES } from "../../constants";
 
 import Welcome from "./headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
 
-
-
 const Home = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const scrollViewRef = useRef(null);
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -27,12 +23,17 @@ const Home = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: theme === "light" ? "#F4EEE0" : "#353535",
+      }}
+    >
       <ScrollView ref={scrollViewRef} showsVerticalScrollIndicator={false}>
         <View style={{ flex: 1, padding: SIZES.medium }}>
           <Welcome searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
           <Feed />
-        </View>  
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

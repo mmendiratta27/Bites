@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../../constants";
-
+import darkMode from "./welcomeDark";
 
 const foodTypes = [
   "Asian Food",
@@ -20,19 +20,30 @@ const foodTypes = [
   "Boba",
 ];
 
-
 const Welcome = () => {
   const [activeFoodType, setActiveFoodType] = useState("Full-time");
-
+  const [theme, setTheme] = useState("light");
 
   return (
     <View>
-      <View style={styles.container}>
-        <Text style={styles.userName}>Hello Jessica :D</Text>
-        <Text style={styles.welcomeMessage}>Find your craving</Text>
+      <View style={theme == "light" ? styles.container : darkMode.container}>
+        <Text style={theme == "light" ? styles.userName : darkMode.userName}>
+          Hello Jessica :D
+        </Text>
+        <Text
+          style={
+            theme == "light" ? styles.welcomeMessage : darkMode.welcomeMessage
+          }
+        >
+          Find your craving
+        </Text>
       </View>
       <View style={{ marginTop: SIZES.medium }}>
-        <View style={styles.searchContainer}>
+        <View
+          style={
+            theme == "light" ? styles.searchContainer : darkMode.searchContainer
+          }
+        >
           <View></View>
           <View
             style={{
@@ -46,25 +57,32 @@ const Welcome = () => {
             }}
           >
             <TextInput
-              style={styles.searchInput}
+              style={
+                theme == "light" ? styles.searchInput : darkMode.searchInput
+              }
               value=""
               // placeholder="What are you looking for?"
             />
           </View>
 
-
-          <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+          <TouchableOpacity
+            style={theme == "light" ? styles.searchBtn : darkMode.searchBtn}
+            onPress={() => {}}
+          >
             <Image
               source={icons.search}
               resizeMode="contain"
-              style={styles.searchBtnImage}
+              style={
+                theme == "light"
+                  ? styles.searchBtnImage
+                  : darkMode.searchBtnImage
+              }
             />
           </TouchableOpacity>
         </View>
       </View>
 
-
-      <View style={styles.tabsContainer}>
+      <View style={theme == "light" ? styles.tabsContainer : darkMode.tabsContainer}>
         <FlatList
           data={foodTypes}
           renderItem={({ item }) => (

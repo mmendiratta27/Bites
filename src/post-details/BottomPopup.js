@@ -94,7 +94,7 @@ export class BottomPopup extends React.Component {
           marginLeft: 20,
         }}
       >
-        <Text style={{ fontsize: 18, fontWeight: "normal", color: "182E44" }}>
+        <Text>
           {item.name}
         </Text>
       </View>

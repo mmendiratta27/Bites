@@ -1,9 +1,9 @@
 {
   "expoServerPort": null,
-  "packagerPort": 19000,
-  "expoServerNgrokUrl": "https://2h-g9q.jesshuang.groupdelivery.exp.direct",
-  "packagerNgrokUrl": "https://2h-g9q.jesshuang.groupdelivery.exp.direct",
-  "ngrokPid": 15680,
+  "packagerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "packagerPid": null,
   "webpackServerPort": null
 }

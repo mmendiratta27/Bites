@@ -22,7 +22,7 @@ const achName = "Acheivements";
 const Stack = createStackNavigator();
 
 const App = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
 
   return (
     <NavigationContainer independent={true}>
@@ -32,12 +32,12 @@ const App = () => {
           component={Login}
           options={{
             headerStyle: {
-              backgroundColor: theme === "light" ? "#F4EEE0" : "#353535",
+              backgroundColor: theme === "light" ? "#F4EEE0" : "#000",
             },
             headerShadowVisible: false,
             headerTitle: "Login",
             headerTitleStyle: {
-              color: theme === "dark" ? "#F4EEE0" : "#353535",
+              color: theme === "dark" ? "white" : "#353535",
             },
           }}
         />
@@ -45,15 +45,14 @@ const App = () => {
           name="Register"
           component={Register}
           options={{
-            headerStyle: {
-              backgroundColor: theme === "light" ? "#F4EEE0" : "#353535",
-            },
+            headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
+            headerLeft: () => (
+              <View style={{ marginLeft: 10 }}>
+                <Icon name="chevron-left" size={30} color="#353535" />
+              </View>
+            ),
             headerTitle: "Create Account",
-            headerTitleStyle: {
-              color: theme === "dark" ? "#F4EEE0" : "#353535",
-            },
-            headerTintColor: "#353535",
           }}
         />
         <Stack.Screen

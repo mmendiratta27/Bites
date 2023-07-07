@@ -26,9 +26,12 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { GiftedChat } from "react-native-gifted-chat";
+import darkMode from "./ChatDark";
 
 export default function HomeScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
+  const [theme, setTheme] = useState("dark");
+
   const Home = () => {
     navigation.replace("homeScreen");
   };
@@ -67,14 +70,28 @@ export default function HomeScreen({ navigation }) {
         keyExtractor={(item) => item._id}
         ItemSeparatorComponent={() => <Divider />}
         renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
+          <View
+            style={
+              theme == "light" ? styles.cardContainer : darkMode.cardContainer
+            }
+          >
             <TouchableOpacity
-              style={styles.card}
+              style={theme == "light" ? styles.card : darkMode.card}
               resizeMode="contain"
               onPress={() => navigation.navigate("Chat", { thread: item })}
             >
-              <Text style={styles.listTitle}>{item.name}</Text>
-              <Text style={styles.listDescription}>
+              <Text
+                style={theme == "light" ? styles.listTitle : darkMode.listTitle}
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={
+                  theme == "light"
+                    ? styles.listDescription
+                    : darkMode.listDescription
+                }
+              >
                 {item.latestMessage.text}
               </Text>
             </TouchableOpacity>
