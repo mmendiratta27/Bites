@@ -30,7 +30,7 @@ import darkMode from "./ChatDark";
 
 export default function HomeScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   const Home = () => {
     navigation.replace("homeScreen");

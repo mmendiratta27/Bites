@@ -10,7 +10,7 @@ import { View } from "react-native";
 const Stack = createStackNavigator();
 
 const ChatNav = ({ navigation }) => {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   return (
     <NavigationContainer independent={true}>

@@ -12,6 +12,7 @@ import AddPost from "./create-posts/addPost";
 import SettingsNav from "./settings/settingsNav";
 import ChatNav from "./messaging/ChatNav";
 import Login from "./Auth/Login";
+import Achievement from "./Achievements/Achievement"
 
 const homeName = "Home";
 const addpostName = "Add Post";
@@ -63,11 +64,11 @@ const MainNavigator = () => {
               backgroundColor: "#F4EEE0",
             },
             headerShadowVisible: false,
-            headerLeft: () => (
-              <View style={{ marginLeft: 10 }}>
-                <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
-              </View>
-            ),
+            // headerLeft: () => (
+            //   <View style={{ marginLeft: 10 }}>
+            //     <Icon name='menu' color ="#353535" size={30}/>
+            //   </View>
+            // ),
             headerRight: () => (
               <View style={{ marginRight: 10 }}>
                 <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
@@ -78,12 +79,11 @@ const MainNavigator = () => {
         />
         <Tab.Screen
           name={achName}
-          component={SettingsNav}
+          component={Achievement}
           options={{
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
             headerTitle: "Acheivements",
-            headerShown: false,
           }}
         />
         <Tab.Screen

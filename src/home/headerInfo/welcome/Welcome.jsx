@@ -11,6 +11,8 @@ import {
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../../constants";
 import darkMode from "./welcomeDark";
+import Icons from "react-native-vector-icons/MaterialIcons";
+
 
 const foodTypes = [
   "Asian Food",
@@ -64,19 +66,11 @@ const Welcome = () => {
               // placeholder="What are you looking for?"
             />
           </View>
-
-          <TouchableOpacity
-            style={theme == "light" ? styles.searchBtn : darkMode.searchBtn}
-            onPress={() => {}}
-          >
-            <Image
-              source={icons.search}
-              resizeMode="contain"
-              style={
-                theme == "light"
-                  ? styles.searchBtnImage
-                  : darkMode.searchBtnImage
-              }
+          <TouchableOpacity style={styles.searchBtn} onPress={() => {}}>
+            <Icons
+              name='search'
+              color="#F4EEE0"
+              size={27}
             />
           </TouchableOpacity>
         </View>

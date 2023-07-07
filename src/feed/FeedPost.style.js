@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SHADOWS, SIZES } from "../../constants";
+import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -11,8 +11,8 @@ const styles = StyleSheet.create({
     padding: SIZES.medium,
     borderRadius: SIZES.small,
     backgroundColor: "#353535",
-    ...SHADOWS.medium,
-    shadowColor: COLORS.white,
+    // ...SHADOWS.medium,
+    // shadowColor: COLORS.white,
   },
   logoContainer: {
     width: 50,

@@ -62,6 +62,9 @@ const styles = StyleSheet.create({
     marginRight: 4,
     color: "#616161",
   },
+  icons:{
+    marginRight: 8,
+  }
 });
 
 export default styles;

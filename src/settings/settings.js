@@ -11,7 +11,8 @@ import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
 import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icon from "react-native-vector-icons/Feather";
+import email from 'react-native-email'
 
 const SECTIONS = [
   {
@@ -41,8 +42,22 @@ const Settings = ({ navigation }) => {
   const handlePress = (id) => {
     if (id === "notifications") {
       navigation.navigate("notifSettings");
+    }else if (id === "contact"){
+      handleEmail()
     }
   };
+
+  const handleEmail = () => {
+    const to = ['grouporder.ssu@gmail.com'] // string or array of email addresses
+        email(to, {
+            // Optional additional arguments
+            // cc: ['bazzy@moo.com', 'doooo@daaa.com'], // string or array of email addresses
+            // bcc: 'mee@mee.com', // string or array of email addresses
+            // subject: 'Show how to use',
+            // body: 'Some body right here',
+            checkCanOpen: false // Call Linking.canOpenURL prior to Linking.openURL
+        }).catch(console.error)
+  }
 
   const [form, setForm] = useState({
     language: "English",
@@ -74,6 +89,7 @@ const Settings = ({ navigation }) => {
                     }}
                   >
                     <View style={styles.row}>
+                      <Icon name = {icon} size={20} style={styles.icons}/>
                       <Text style={styles.rowLabel}>{label}</Text>
 
                       <View style={styles.rowSpacer} />
@@ -93,11 +109,6 @@ const Settings = ({ navigation }) => {
                       )}
 
                       {["select", "link"].includes(type) && (
-                        // <FeatherIcon
-                        // name='chevron-right'
-                        // color="#ababab"
-                        // size={22}
-                        // />
                         <Icon name="chevron-right" size={30} color="#353535" />
                       )}
                     </View>
