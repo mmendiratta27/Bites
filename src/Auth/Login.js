@@ -10,7 +10,7 @@ const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
   //currently hard coded to dark mode for testing
 
   // Appearance.addChangeListener((scheme) => {

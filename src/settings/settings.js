@@ -13,6 +13,9 @@ import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import Profile from "./profile";
 import Icon from "react-native-vector-icons/Feather";
 import email from 'react-native-email'
+import { images } from "../../constants";
+
+
 
 const SECTIONS = [
   {
@@ -66,7 +69,34 @@ const Settings = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#F4EEE0" }}>
       <ScrollView contentContainerStyle={styles.container}>
-        <Profile />
+        <SafeAreaView style={{ flex: 1, backgroundColor: "#f6f6f6" }}>
+          <View style={styles.profcontainer}>
+            <View style={styles.profprofile}>
+              <View style={styles.profileHeader}>
+                <ScreenHeaderBtn
+                  iconUrl={images.profile}
+                  dimension="100%"
+                  style={styles.profileAvatar}
+                />
+
+                <View style={styles.profileBody}>
+                  <Text style={styles.profileName}> Manan Mendiratta </Text>
+                  <Text style={styles.profileHandle}>@mmendiratta</Text>
+                </View>
+              </View>
+
+              <TouchableOpacity
+                style={styles.container}
+                onPress={() => navigation.navigate("EditProfile")}
+                resizeMode="contain"
+              >
+                <View style={styles.profileAction}>
+                  <Text style={styles.profileActionText}>Edit Profile</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </SafeAreaView>
         {SECTIONS.map(({ header, items }) => (
           <View style={styles.section} key={header}>
             <View style={styles.sectionHeader}>
@@ -89,7 +119,7 @@ const Settings = ({ navigation }) => {
                     }}
                   >
                     <View style={styles.row}>
-                      <Icon name = {icon} size={20} style={styles.icons}/>
+                      <Icon name={icon} size={20} style={styles.icons} />
                       <Text style={styles.rowLabel}>{label}</Text>
 
                       <View style={styles.rowSpacer} />

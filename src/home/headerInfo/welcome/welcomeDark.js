@@ -1,75 +1,64 @@
+import React from "react";
 import { StyleSheet } from "react-native";
 
-
-import { COLORS, SIZES } from "../../../../constants";
-
-
-const styles = StyleSheet.create({
+const darkMode = StyleSheet.create({
   container: {
     width: "100%",
-    // height: Dimensions.get("window").height / 2,
   },
   userName: {
-    // fontFamily: FONT.regular,
-    fontSize: SIZES.large,
-    color: "#353535",
+    fontSize: 20,
+    color: "#F4EEE0",
   },
   welcomeMessage: {
-    // fontFamily: FONT.bold,
-    fontSize: SIZES.xLarge,
-    color: "#353535",
+    fontSize: 24,
+    color: "#F4EEE0",
     marginTop: 2,
   },
   searchContainer: {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    // marginTop: SIZES.large,
     height: 50,
   },
   searchWrapper: {
     flex: 1,
     backgroundColor: "#fffceb",
-    // marginRight: SIZES.small,
-    // marginLeft: 20,
     justifyContent: "center",
-    alignItems: "stretch",
-    borderRadius: SIZES.medium,
+    alignItems: "center",
+    borderRadius: 16,
     height: "100%",
   },
   searchInput: {
-    // fontFamily: FONT.regular,
-    marginLeft: 20,
     width: "100%",
     height: "100%",
-    paddingHorizontal: SIZES.medium,
+    paddingHorizontal: 16,
   },
   searchBtn: {
     width: 50,
     height: "100%",
-    backgroundColor: COLORS.tertiary,
-    borderRadius: SIZES.medium,
+    backgroundColor: "#414141",
+    borderRadius: 16,
     justifyContent: "center",
     alignItems: "center",
   },
   searchBtnImage: {
     width: "50%",
     height: "50%",
-    tintColor: COLORS.white,
+    tintColor: "#F3F4F8",
   },
   tabsContainer: {
     width: "100%",
-    marginTop: SIZES.medium,
+    marginTop: 16,
   },
   tab: (activeJobType, item) => ({
-    paddingVertical: SIZES.small / 2,
-    paddingHorizontal: SIZES.small,
-    borderRadius: SIZES.medium,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 16,
     borderWidth: 1,
     borderColor: activeJobType === item ? COLORS.secondary : COLORS.gray2,
   }),
   tabText: (activeJobType, item) => ({
-    // fontFamily: FONT.medium,
+    fontFamily: FONT.medium,
     color: activeJobType === item ? COLORS.secondary : COLORS.gray2,
   }),
   separator: {
@@ -95,5 +84,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default styles;
+export default darkMode;

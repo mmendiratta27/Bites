@@ -7,12 +7,12 @@ const darkMode = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     // marginTop: 100,
-    backgroundColor: "#000",
+    backgroundColor: "#353535",
   },
   placeholder: {
     alignItems: "top",
     padding: 80,
-    backgroundColor: "#000",
+    backgroundColor: "#353535",
   },
   signin: {
     width: 350,
