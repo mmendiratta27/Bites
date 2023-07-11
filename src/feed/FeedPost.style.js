@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
     // shadowColor: COLORS.white,
   },
   logoContainer: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     backgroundColor: COLORS.white,
     borderRadius: SIZES.medium,
     justifyContent: "center",

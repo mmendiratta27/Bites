@@ -7,8 +7,9 @@ import { View } from "react-native";
 import MainNavigator from "./src/MainNavigator";
 import Login from "./src/Auth/Login";
 import Register from "./src/Auth/Register";
-import { createStackNavigator } from "@react-navigation/stack";
+import EditProfile from "./src/settings/editProfile"
 
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,24 @@ const App = () => {
             headerTintColor: "#353535",
           }}
         />
+
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfile}
+          options={{
+            headerStyle: {
+              backgroundColor: theme === "light" ? "#F4EEE0" : "#353535",
+            },
+            headerShadowVisible: false,
+            headerTitle: "Create Account",
+            headerTitleStyle: {
+              color: theme === "dark" ? "#F4EEE0" : "#353535",
+            },
+            headerTintColor: "#353535",
+            presentation: "modal",
+          }}
+        />
+
         <Stack.Screen
           name="MainNavigator"
           component={MainNavigator}

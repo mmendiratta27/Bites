@@ -7,6 +7,7 @@ import { COLORS, SIZES } from "../../../../constants";
 const styles = StyleSheet.create({
   container: {
     width: "100%",
+    // height: Dimensions.get("window").height / 2,
   },
   userName: {
     // fontFamily: FONT.regular,
@@ -30,13 +31,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fffceb",
     // marginRight: SIZES.small,
+    // marginLeft: 20,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "stretch",
     borderRadius: SIZES.medium,
     height: "100%",
   },
   searchInput: {
     // fontFamily: FONT.regular,
+    marginLeft: 20,
     width: "100%",
     height: "100%",
     paddingHorizontal: SIZES.medium,

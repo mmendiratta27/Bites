@@ -89,27 +89,33 @@ export class BottomPopup extends React.Component {
         style={{
           height: 50,
           flex: 1,
-          alignItems: "flex-start",
+          alignItems: "center",
           justifyContent: "center",
-          marginLeft: 20,
+          // marginLeft: 20,
+          backgroundColor: "#F4EEE0", // Add a custom background color
+          paddingHorizontal: 10, // Add horizontal padding
+          borderRadius: 8, // Add border radius
+          marginBottom: 10, // Add margin bottom
         }}
       >
-        <Text>
-          {item.name}
-        </Text>
+        <Text style={{ color: "#353535", fontSize: 16 }}>{item.name}</Text>
       </View>
     );
   };
 
   renderSeparator = () => (
-    <View
-      style={{
-        opacity: 0.1,
-        backgroundColor: "#182E44",
-        height: 1,
-      }}
-    />
+    <View style={{ height: 1, backgroundColor: "transparent" }} />
   );
+
+  // renderSeparator = () => (
+  //   <View
+  //     style={{
+  //       opacity: 0.1,
+  //       backgroundColor: "#182E44",
+  //       height: 1,
+  //     }}
+  //   />
+  // );
 
   render() {
     let { show } = this.state;

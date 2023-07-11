@@ -4,41 +4,14 @@ import ScreenHeaderBtn from "../home/headerInfo/ScreenHeaderBtn";
 import { images } from "../../constants";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { BottomPopup } from "../post-details/BottomPopup";
+import EditProfile from "./editProfile";
 
-export default function Profile() {
-  const popuplist = [
-    {
-      id: 1,
-      name: "Pickup Location: 340 E. Foothill Blvd",
-    },
-    {
-      id: 2,
-      name: "Order closes in 30 minutes",
-    },
-    {
-      id: 3,
-      name: "1/5 people joined",
-    },
-    {
-      id: 4,
-      name: "Join Now",
-    },
-  ];
-
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-  const showPopup = () => {
-    setIsPopupVisible(true);
-  };
-
-  const hidePopup = () => {
-    setIsPopupVisible(false);
-  };
+export default function Profile({navigation}) {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "#f6f6f6" }}>
-      <View style={styles.container}>
-        <View style={styles.profile}>
+      <View style={styles.profcontainer}>
+        <View style={styles.profprofile}>
           <View style={styles.profileHeader}>
             <ScreenHeaderBtn
               iconUrl={images.profile}
@@ -54,20 +27,13 @@ export default function Profile() {
 
           <TouchableOpacity
             style={styles.container}
-            onPress={showPopup}
+            onPress={() => navigation.navigate("EditProfile")}
             resizeMode="contain"
           >
             <View style={styles.profileAction}>
               <Text style={styles.profileActionText}>Edit Profile</Text>
             </View>
           </TouchableOpacity>
-          {isPopupVisible && (
-            <BottomPopup
-              title="Raising Cane's"
-              onTouchOutside={hidePopup}
-              data={popuplist}
-            />
-          )}
         </View>
       </View>
     </SafeAreaView>
@@ -75,12 +41,12 @@ export default function Profile() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  profcontainer: {
     paddingVertical: 0,
     flex: 1,
     backgroundColor: "#F4EEE0",
   },
-  profile: {
+  profprofile: {
     paddingTop: 12,
     paddingHorizontal: 24,
     paddingBottom: 24,

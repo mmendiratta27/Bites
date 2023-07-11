@@ -66,38 +66,39 @@ export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <FlatList
-        data={threads}
-        keyExtractor={(item) => item._id}
-        ItemSeparatorComponent={() => <Divider />}
-        renderItem={({ item }) => (
-          <View
-            style={
-              theme == "light" ? styles.cardContainer : darkMode.cardContainer
-            }
-          >
-            <TouchableOpacity
-              style={theme == "light" ? styles.card : darkMode.card}
-              resizeMode="contain"
-              onPress={() => navigation.navigate("Chat", { thread: item })}
-            >
-              <Text
-                style={theme == "light" ? styles.listTitle : darkMode.listTitle}
-              >
-                {item.name}
-              </Text>
-              <Text
-                style={
-                  theme == "light"
-                    ? styles.listDescription
-                    : darkMode.listDescription
-                }
-              >
-                {item.latestMessage.text}
-              </Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+  data={threads}
+  keyExtractor={(item) => item._id}
+  renderItem={({ item }) => (
+    <View
+      style={
+        theme === "light"
+          ? styles.cardContainer
+          : darkMode.cardContainer
+      }
+    >
+      <TouchableOpacity
+        style={theme === "light" ? styles.card : darkMode.card}
+        onPress={() => navigation.navigate("Chat", { thread: item })}
+      >
+        <Text
+          style={theme === "light" ? styles.listTitle : darkMode.listTitle}
+        >
+          {item.name}
+        </Text>
+        <Text
+          style={
+            theme === "light"
+              ? styles.listDescription
+              : darkMode.listDescription
+          }
+        >
+          {item.latestMessage.text}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )}
+/>
+
     </View>
   );
 }

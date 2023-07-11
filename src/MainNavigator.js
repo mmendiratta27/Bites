@@ -1,10 +1,13 @@
+import { useState } from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import ScreenHeaderBtn from "./home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "../constants";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
-import { View } from "react-native";
+import { BottomPopup } from "./post-details/BottomPopup";
+import styles from "./feed/FeedPost.style";
 
 //Screens
 import HomeScreen from "./home/homeScreen";
@@ -12,7 +15,7 @@ import AddPost from "./create-posts/addPost";
 import SettingsNav from "./settings/settingsNav";
 import ChatNav from "./messaging/ChatNav";
 import Login from "./Auth/Login";
-import Achievement from "./Achievements/Achievement"
+import Achievement from "./Achievements/Achievement";
 
 const homeName = "Home";
 const addpostName = "Add Post";
@@ -20,9 +23,45 @@ const settingsName = "Settings";
 const chatName = "GroupChats";
 const achName = "Achievements";
 
+const image = {
+  uri: "https://images.prismic.io/raisingcanes/93a74859-268e-46ce-aa54-653a804c82cd_raising-canes-web-logo_0825_square.png?ixlib=gatsbyFP&auto=compress%2Cformat&fit=max&rect=0%2C0%2C1000%2C1000&w=256&h=256",
+};
+
 const Tab = createBottomTabNavigator();
 
-const MainNavigator = () => {
+const popuplist = [
+  {
+    id: 1,
+    name: "Profile",
+    style: {
+      backgroundColor: "#F4EEE0",
+      paddingHorizontal: 16,
+      paddingVertical: 12,
+      borderRadius: 8,
+    },
+    textStyle: {
+      color: "#353535",
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+  },
+  {
+    id: 1,
+    name: "Rating",
+  },
+];
+
+const MainNavigator = ({dimension, navigation}) => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const showPopup = () => {
+    setIsPopupVisible(true);
+  };
+
+  const hidePopup = () => {
+    setIsPopupVisible(false);
+  };
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -64,15 +103,32 @@ const MainNavigator = () => {
               backgroundColor: "#F4EEE0",
             },
             headerShadowVisible: false,
-            // headerLeft: () => (
-            //   <View style={{ marginLeft: 10 }}>
-            //     <Icon name='menu' color ="#353535" size={30}/>
-            //   </View>
-            // ),
             headerRight: () => (
-              <View style={{ marginRight: 10 }}>
-                <ScreenHeaderBtn iconUrl={images.profile} dimension="90%" />
-              </View>
+              <>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("EditProfile")}
+                  resizeMode="contain"
+                >
+                  <View style={[styles.logoContainer, { marginRight: 10 }]}>
+                    <Image
+                      source={images.profile}
+                      // resizeMode="contain"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 9.6,
+                      }}
+                    />
+                  </View>
+                </TouchableOpacity>
+                {isPopupVisible && (
+                  <BottomPopup
+                    title="Profile"
+                    onTouchOutside={hidePopup}
+                    data={popuplist}
+                  />
+                )}
+              </>
             ),
             headerTitle: "Group Order",
           }}
@@ -83,7 +139,7 @@ const MainNavigator = () => {
           options={{
             headerStyle: { backgroundColor: "#F4EEE0" },
             headerShadowVisible: false,
-            headerTitle: "Acheivements",
+            headerTitle: "Achievements",
           }}
         />
         <Tab.Screen

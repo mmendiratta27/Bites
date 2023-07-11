@@ -3,7 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import Settings from './settings';
 import NotifSettings from './notifSettings';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import EditProfile from './editProfile';
 import { View } from 'react-native';
+import Profile from './profile';
 
 const Stack = createStackNavigator();
 
@@ -27,18 +29,40 @@ const SettingsNav= ({navigation}) => {
             options={{
               headerStyle: { backgroundColor: "#F4EEE0" },
               headerShadowVisible: false,
-              headerTintColor: '#353535',
-              // headerLeft: () => (
-              //   <View style={{ marginLeft: 10 }}>
-              //     <Icon
-              //       name="chevron-left"
-              //       size={30}
-              //       color="#353535"
-              //       onPress={() => navigation.navigate("Settings")}
-              //     />
-              //   </View>
-              // ),
+              headerTintColor: "#353535",
               headerTitle: "Notifications",
+            }}
+          />
+          <Stack.Screen
+            name="EditProfile"
+            component={EditProfile}
+            options={{
+              headerStyle: {
+                backgroundColor: "#F4EEE0",
+              },
+              headerShadowVisible: false,
+              headerTitle: "Create Account",
+              headerTitleStyle: {
+                color: "#F4EEE0",
+              },
+              headerTintColor: "#353535",
+              presentation: "modal",
+            }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              headerStyle: {
+                backgroundColor: "#F4EEE0",
+              },
+              headerShadowVisible: false,
+              headerTitle: "Create Account",
+              headerTitleStyle: {
+                color: "#F4EEE0",
+              },
+              headerTintColor: "#353535",
+              presentation: "modal",
             }}
           />
         </Stack.Navigator>
