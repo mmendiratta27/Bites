@@ -1,6 +1,12 @@
-import React, { useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import React, {useState, useEffect, useContext, createContext, props} from 'react';
+import ScreenHeaderBtn from "./src/home/headerInfo/ScreenHeaderBtn";
+import { icons, images } from "./constants";
+import { NavigationContainer } from '@react-navigation/native';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import Icons from "react-native-vector-icons/MaterialIcons";
+import { auth, db, firebase } from './firebase';
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { View } from "react-native";
 
 //Screens

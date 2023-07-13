@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext, useCallback, useLayoutEffect } from "react";
 import {
   View,
   Text,
   TextInput,
+  StyleSheet,
+  Button,
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
   Image,
 } from "react-native";
-import { icons, SIZES } from "../../constants";
+import { COLORS, icons, images, SIZES } from "../../constants";
 import styles from "../home/headerInfo/welcome/welcome.style";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import Icons from "react-native-vector-icons/MaterialIcons";
@@ -18,7 +20,7 @@ import MapView, { Marker } from "react-native-maps";
 
 import { IconButton, Title } from 'react-native-paper';
 import { auth, db, firebase } from '../../firebase';
-import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
+import { collection, addDoc, getDocs, doc, getDoc, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 
@@ -54,12 +56,18 @@ const MapComponent = ({ navigation }) => {
   const [selectedOption, setSelectedOption] = useState("");
 
 
+
+//Chat Stuff
+
+
 function handleButtonPress() {
   if (restaurant.length > 0) {
     firebase.firestore()
       .collection('threads')
       .add({
         name: restaurant,
+        members: [auth?.currentUser?.displayName],
+        uid: firebase.auth().currentUser.uid, // user who created the post
         latestMessage: {
           text: `You have joined ${restaurant}.`,
           createdAt: new Date().getTime()
@@ -71,15 +79,74 @@ function handleButtonPress() {
           createdAt: new Date().getTime(),
           system: true
         });
-        navigation.navigate('homeScreen');
+        docRef.collection('members').add({
+          user: auth?.currentUser?.displayName,
+          createdAt: new Date().getTime(),
+        });
       });
+    firebase.firestore()
+        .collection('history')
+        .add({
+          name: restaurant,
+          members: [auth?.currentUser?.displayName],
+          createdAt: new Date().getTime(),
+          uid: firebase.auth().currentUser.uid, // user who created the post
+        })
+        .then(docRef => {
+          docRef.collection('members').add({
+            user: auth?.currentUser?.displayName,
+            createdAt: new Date().getTime(),
+          });
+        });
+    firebase.firestore()
+        .collection('posts')
+        .add({
+          restaurant,
+          hour,
+          minute,
+          isAM,
+          link,
+          nearestAddress,
+          searchValue,
+          comments,
+          uid: firebase.auth().currentUser.uid, // user who created the post
+          createdAt: new Date().getTime(),
+        });
+    setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
+    setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
+    navigation.navigate('homeScreen');
   }
+}
+
+
+function handleLeaveDay() {
+    firebase.firestore()
+      .collection('threads')
+      .where("name", "==", restaurant)
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.docs[0] !== undefined) {
+            querySnapshot.docs[0].ref.delete();
+            };
+        });
+}
+
+function handleLeaveWeek() {
+    firebase.firestore()
+      .collection('history')
+      .where("name", "==", restaurant)
+      .get()
+      .then(querySnapshot => {
+          if (querySnapshot.docs[0] !== undefined) {
+              querySnapshot.docs[0].ref.delete();
+              };
+        });
 }
 
 
 
 
-
+//Other Stuff
 
 
 

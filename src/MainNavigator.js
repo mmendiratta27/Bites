@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { useState, useContext } from "react";
+import { View, Text, TouchableOpacity, Image, StyleSheet, Button } from "react-native";
 import ScreenHeaderBtn from "./home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "../constants";
 import { NavigationContainer } from "@react-navigation/native";
@@ -8,6 +8,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
 import { BottomPopup } from "./post-details/BottomPopup";
 import styles from "./feed/FeedPost.style";
+import { auth, db, firebase } from './../firebase';
 
 //Screens
 import HomeScreen from "./home/homeScreen";
@@ -62,6 +63,17 @@ const MainNavigator = ({dimension, navigation}) => {
     setIsPopupVisible(false);
   };
 
+  const SignOut = () => {
+      firebase
+      .auth()
+      .signOut()
+      .then(navigation.navigate('Login'))
+      .catch((error) => {
+            console.log('Error', error.toString());
+      });
+      }
+
+
   return (
     <NavigationContainer independent={true}>
       <Tab.Navigator
@@ -103,6 +115,9 @@ const MainNavigator = ({dimension, navigation}) => {
               backgroundColor: "#F4EEE0",
             },
             headerShadowVisible: false,
+            headerLeft: () => (
+                <Button title="Logout" onPress={SignOut} />
+              ),
             headerRight: () => (
               <>
                 <TouchableOpacity
@@ -111,7 +126,9 @@ const MainNavigator = ({dimension, navigation}) => {
                 >
                   <View style={[styles.logoContainer, { marginRight: 10 }]}>
                     <Image
-                      source={images.profile}
+                      source={{
+                         uri: auth?.currentUser?.photoURL
+                         }}
                       // resizeMode="contain"
                       style={{
                         width: 40,

@@ -12,6 +12,7 @@ import styles from "./welcome.style";
 import { icons, SIZES } from "../../../../constants";
 import darkMode from "./welcomeDark";
 import Icons from "react-native-vector-icons/MaterialIcons";
+import { auth, db, firebase } from '../../../../firebase';
 
 
 const foodTypes = [
@@ -30,7 +31,7 @@ const Welcome = () => {
     <View>
       <View style={theme == "light" ? styles.container : darkMode.container}>
         <Text style={theme == "light" ? styles.userName : darkMode.userName}>
-          Hello Jessica :D
+          Hello {auth?.currentUser?.displayName}
         </Text>
         <Text
           style={

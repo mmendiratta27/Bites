@@ -1,5 +1,5 @@
-import React, { useState, useLayoutEffect } from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import React, { useState, useLayoutEffect, useContext} from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { auth, db, firebase } from "../../firebase";
 import {
   GiftedChat,
@@ -8,6 +8,8 @@ import {
   SystemMessage,
 } from "react-native-gifted-chat";
 import { IconButton } from "react-native-paper";
+import { Avatar } from 'react-native-elements';
+import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
 
 export default function Chat({ route }) {
   const [messages, setMessages] = useState([]);

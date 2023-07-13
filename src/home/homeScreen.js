@@ -1,6 +1,7 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
 import { SIZES } from "../../constants";
+import {auth, db, firebase} from '../../firebase';
 
 import Welcome from "./headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
