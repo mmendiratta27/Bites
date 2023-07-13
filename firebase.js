@@ -1,11 +1,13 @@
 import { initializeApp, getApp } from 'firebase/app';
-import { initializeFirestore, getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { initializeFirestore, getFirestore, persistentLocalCache  } from 'firebase/firestore';
+import { initializeAuth, getAuth, browserLocalPersistence, setPersistence } from 'firebase/auth';
 import Constants from "expo-constants"
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import 'firebase/compat/firestore'
-
+import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getReactNativePersistence } from "firebase/auth/react-native"
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCxvbAvtRB3ah-2-hi0jMTZI9jXv-K1fk4",
@@ -18,13 +20,17 @@ const firebaseConfig = {
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+firebase.firestore();
+firebase.functions();
+const auth = initializeAuth(app, {persistence: getReactNativePersistence(AsyncStorage)});
 
-const auth = getAuth(app);
 const db = initializeFirestore(app, {experimentalForceLongPolling: true});
+//db.enablePersistence();
 
 if (!firebase.apps.length) {
 firebase.initializeApp(firebaseConfig)
 }
 
 export { db, auth, firebase };
+//setPersistence(auth, inMemoryPersistence)

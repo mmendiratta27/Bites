@@ -13,7 +13,7 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
-import { Title, IconButton, List, Divider } from "react-native-paper";
+import { Title, IconButton, button, List, Divider, Dialog, Portal } from 'react-native-paper';
 import { auth, db, firebase } from "../../firebase";
 import { Avatar } from "react-native-elements";
 import { signOut } from "firebase/auth";
@@ -24,12 +24,14 @@ import {
   query,
   orderBy,
   onSnapshot,
+  where,
 } from "firebase/firestore";
 import { GiftedChat } from "react-native-gifted-chat";
 import darkMode from "./ChatDark";
 
 export default function HomeScreen({ navigation }) {
   const [threads, setThreads] = useState([]);
+  const [leave, setLeave] = useState(null);
   const [theme, setTheme] = useState("light");
 
   const Home = () => {
@@ -37,24 +39,25 @@ export default function HomeScreen({ navigation }) {
   };
 
   useLayoutEffect(() => {
-    const unsubscribe = firebase
-      .firestore()
-      .collection("threads")
-      .orderBy("latestMessage.createdAt", "desc")
-      .onSnapshot((querySnapshot) => {
-        const threads = querySnapshot.docs.map((documentSnapshot) => {
+    const unsubscribe = firebase.firestore()
+      .collection('threads')
+      .where("members", "array-contains", auth?.currentUser?.displayName)
+      .orderBy('latestMessage.createdAt', 'desc')
+      .onSnapshot(querySnapshot => {
+        const threads = querySnapshot.docs.map(documentSnapshot => {
           return {
             _id: documentSnapshot.id,
             // give defaults
-            name: "",
+            name: '',
             latestMessage: {
-              text: "",
-            },
-            ...documentSnapshot.data(),
+                text: ''
+              },
+            ...documentSnapshot.data()
           };
         });
 
         setThreads(threads);
+
       });
 
     /**
@@ -63,41 +66,66 @@ export default function HomeScreen({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+
+function handleLeave() {
+    firebase.firestore()
+      .collection('threads')
+      .doc(leave._id)
+      .delete()
+      .then (() => {setLeave(null)});
+}
+
+function handleDismissLeave(){
+    setLeave(null);
+}
+
+
   return (
     <View style={styles.container}>
+      <View >
+        <Button title="History" dimension="60%" onPress={() => navigation.navigate("History")} />
+      </View>
       <FlatList
-  data={threads}
-  keyExtractor={(item) => item._id}
-  renderItem={({ item }) => (
-    <View
-      style={
-        theme === "light"
-          ? styles.cardContainer
-          : darkMode.cardContainer
-      }
-    >
-      <TouchableOpacity
-        style={theme === "light" ? styles.card : darkMode.card}
-        onPress={() => navigation.navigate("Chat", { thread: item })}
-      >
-        <Text
-          style={theme === "light" ? styles.listTitle : darkMode.listTitle}
-        >
-          {item.name}
-        </Text>
-        <Text
-          style={
-            theme === "light"
-              ? styles.listDescription
-              : darkMode.listDescription
-          }
-        >
-          {item.latestMessage.text}
-        </Text>
-      </TouchableOpacity>
-    </View>
+        data={threads}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View
+              style={
+                theme === "light"
+                  ? styles.cardContainer
+                  : darkMode.cardContainer
+              }
+            >
+          <TouchableOpacity
+            style={theme === "light" ? styles.card : darkMode.card}
+            onPress={() => navigation.navigate("Chat", { thread: item })}
+            onLongPress={() => setLeave(item)}
+          >
+            <Text
+              style={theme === "light" ? styles.listTitle : darkMode.listTitle}
+            >
+              {item.name}
+            </Text>
+            <Text
+              style={
+                theme === "light"
+                  ? styles.listDescription
+                  : darkMode.listDescription
+              }
+            >
+              {item.latestMessage.text}
+            </Text>
+          </TouchableOpacity>
+        </View>
   )}
 />
+     <Dialog visible={leave} onDismiss={handleDismissLeave}>
+        <Dialog.Title>Leave Chat?</Dialog.Title>
+        <Dialog.Actions>
+          <Button title='Cancel' onPress={handleDismissLeave}></Button>
+          <Button title='Confirm' onPress={handleLeave}></Button>
+        </Dialog.Actions>
+      </Dialog>
 
     </View>
   );
@@ -133,7 +161,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     justifyContent: "space-between",
-    alignItems: "left",
+//    alignItems: "left",
     flexDirection: "column",
     padding: 16,
     borderRadius: 12,

@@ -3,6 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 import ChatScreen from "./Chat";
 import ChatHome from "./ChatHome";
+import MembersPage from './MembersPage';
+import History from './History';
+import {Button} from 'react-native';
 
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { View } from "react-native";
@@ -32,7 +35,7 @@ const ChatNav = ({ navigation }) => {
         <Stack.Screen
           name="Chat"
           component={ChatScreen}
-          options={({ route }) => ({
+          options={({ navigation, route }) => ({
             title: route.params.thread.name,
             headerShadowVisible: false,
             headerTitle: "TestChat1",
@@ -46,8 +49,13 @@ const ChatNav = ({ navigation }) => {
                 />
               </View>
             ),
+            headerRight: () => (
+                <Button title="Members" dimension="60%" onPress={() => navigation.navigate("MembersPage", {thread: route.params.thread} )} />
+            ),
           })}
         />
+        <Stack.Screen name="MembersPage" component={MembersPage} options={{headerShown: false}}/>
+        <Stack.Screen name="History" component={History} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

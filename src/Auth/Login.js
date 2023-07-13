@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, Appearance } from "react-native";
+import React, { useState, useCallback, useContext } from "react";
+import { View, StyleSheet, Text, Appearance, setVisible, setModalMessage } from "react-native";
 import { Input, Button } from "react-native-elements";
-import { auth } from "../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db, firebase } from "../../firebase";
+import { getAuth, setPersistence, onAuthStateChanged,signInWithEmailAndPassword, Persistence } from "firebase/auth";
 import Icon from "react-native-vector-icons/FontAwesome";
 import darkMode from "./styles/darkMode";
 
@@ -16,6 +16,18 @@ const Login = ({ navigation }) => {
   // Appearance.addChangeListener((scheme) => {
   //   setTheme(scheme.colorScheme())
   // })
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/auth.user
+    navigation.navigate('MainNavigator')
+
+  }
+  });
+
 
   const openRegisterScreen = () => {
     navigation.navigate("Register");
@@ -92,12 +104,12 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+//    alignItems: 'center',
     padding: 10,
     backgroundColor: "#F4EEE0",
   },
   placeholder: {
-    alignItems: "top",
+//    alignItems: 'top',
     padding: 80,
     backgroundColor: "#F4EEE0",
   },
@@ -117,3 +129,33 @@ const styles = StyleSheet.create({
 });
 
 export default Login;
+
+//const handleLogin = useCallback(
+//    async () => {
+//        try {
+//            await firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+//            await firebase
+//                .auth()
+//                .signInWithEmailAndPassword(email, password);
+//            navigation.navigate("MainNavigator");
+//        } catch (error) {
+//            alert(error);
+//        }
+//    },
+//    [navigation]
+//);
+
+//
+
+
+//    const handleLogin = async () => {
+//      await firebase
+//        .auth()
+//        .signInWithEmailAndPassword(email, password)
+//        .catch((error) => {
+//          const errorCode = error.code;
+//          const errorMessage = error.message;
+//          alert(errorMessage);
+//        });
+//
+//  };
