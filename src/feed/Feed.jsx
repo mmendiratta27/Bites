@@ -27,7 +27,7 @@ const Feed = ({ navigation }) => {
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : length ?(
-          <Text> There is nothing to show right now!</Text>
+          <Text> No posts right now, make your own!</Text>
         ): (
           nearbyJobsData.map((job) => (
               <FeedPost

@@ -16,17 +16,59 @@ import Icons from "react-native-vector-icons/MaterialIcons";
 import * as Location from "expo-location";
 import MapView, { Marker } from "react-native-maps";
 
-import { IconButton, Title } from 'react-native-paper';
-import { auth, db, firebase } from '../../firebase';
-import { collection, addDoc, getDocs, query, orderBy, onSnapshot } from 'firebase/firestore';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { IconButton, Title } from "react-native-paper";
+import { auth, db, firebase } from "../../firebase";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
+import { GiftedChat } from "react-native-gifted-chat";
 
+import { StatusBar } from "expo-status-bar";
+// import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import RNDateTimeSelector from "react-native-date-time-scroll-picker";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
+const borderWidth = 25;
+const setTimerWidthHeight = wp(50);
+const selectedItemTextSize = 25;
+const wrapperHeight = setTimerWidthHeight - borderWidth * 2;
+
+const addZeroToDigits = (digit) => {
+  if (digit) {
+    let zeroAdded = `0${digit}`;
+    return zeroAdded.substring(zeroAdded.length - 2);
+  } else {
+    return `00`;
+  }
+};
+
+const dataSet = {
+  data: {
+    firstColumn: [...Array(13).keys()].map((item, idx) => {
+      return { value: addZeroToDigits(item), index: idx };
+    }),
+    secondColumn: [...Array(60).keys()].map((item, idx) => {
+      return { value: addZeroToDigits(item), index: idx };
+    }),
+    thirdColumn: [
+      { value: "AM", index: 0 },
+      { value: "PM", index: 1 },
+    ],
+  },
+  initials: [7, 25, 1],
+};
 
 const MapComponent = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const scrollViewRef = useRef(null);
-
 
   useEffect(() => {
     if (scrollViewRef.current) {
@@ -53,37 +95,28 @@ const MapComponent = ({ navigation }) => {
   const [isAM, setIsAM] = useState(true);
   const [selectedOption, setSelectedOption] = useState("");
 
-
-function handleButtonPress() {
-  if (restaurant.length > 0) {
-    firebase.firestore()
-      .collection('threads')
-      .add({
-        name: restaurant,
-        latestMessage: {
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime()
-        }
-      })
-      .then(docRef => {
-        docRef.collection('messages').add({
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime(),
-          system: true
+  function handleButtonPress() {
+    if (restaurant.length > 0) {
+      firebase
+        .firestore()
+        .collection("threads")
+        .add({
+          name: restaurant,
+          latestMessage: {
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime(),
+          },
+        })
+        .then((docRef) => {
+          docRef.collection("messages").add({
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime(),
+            system: true,
+          });
+          navigation.navigate("homeScreen");
         });
-        navigation.navigate('homeScreen');
-      });
+    }
   }
-}
-
-
-
-
-
-
-
-
-
 
   const handleToggle = () => {
     setIsAM(!isAM);
@@ -153,10 +186,32 @@ function handleButtonPress() {
     }
   };
 
-//  const handleSubmit = async () => {
-//    // router.push(`/`);
-//    navigation.navigate("homeScreen");
-//  };
+  //  const handleSubmit = async () => {
+  //    // router.push(`/`);
+  //    navigation.navigate("homeScreen");
+  //  };
+  const seperatorComponentRendererOne = () => {
+    return (
+      <Text
+        style={{
+          fontSize: selectedItemTextSize,
+          lineHeight: setTimerWidthHeight * 0.15,
+        }}
+      >
+        :
+      </Text>
+    );
+  };
+  const seperatorComponentRendererTwo = () => {
+    return (
+      <Text
+        style={{
+          fontSize: selectedItemTextSize,
+          lineHeight: setTimerWidthHeight * 0.15,
+        }}
+      ></Text>
+    );
+  };
 
   return (
     <KeyboardAvoidingView
@@ -187,11 +242,24 @@ function handleButtonPress() {
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
-                    labelName='Restaurant'
+                    labelName="Restaurant"
                     value={restaurant}
-                    clearButtonMode='while-editing'
+                    clearButtonMode="while-editing"
                     style={{ color: "black" }}
                     onChangeText={(text) => setRestaurant(text)}
+                  />
+                </View>
+              </View>
+            </View>
+
+            <Text style={styles.userName}>Group order link: </Text>
+            <View style={{ marginBottom: SIZES.small }}>
+              <View style={styles.searchContainer}>
+                <View style={styles.searchWrapper}>
+                  <TextInput
+                    style={{ color: "black" }}
+                    value={link}
+                    onChangeText={(text) => setLink(text)}
                   />
                 </View>
               </View>
@@ -201,7 +269,43 @@ function handleButtonPress() {
               <Text style={styles.userName}>Time order will be placed: </Text>
             </View>
 
-            <View style={{ marginBottom: SIZES.small }}>
+            <RNDateTimeSelector
+              dataSet={dataSet}
+              onValueChange={(value) => {
+                console.log("data on users end :   ... ", value);
+              }}
+              containerStyle={{
+                alignSelf: "center",
+                borderWidth: 0,
+                borderColor: "transparent",
+                borderRadius: 20,
+                height: wp(35.5),
+              }}
+              firstSeperatorComponent={seperatorComponentRendererOne}
+              secondSeperatorComponent={seperatorComponentRendererTwo}
+              seperatorContainerStyle={
+                {
+                  // width: wp(4)
+                }
+              }
+              scrollPickerOptions={{
+                itemHeight: 40,
+                wrapperHeight: wrapperHeight,
+                wrapperColor: "rgba(0,0,0,0)",
+                highlightColor: "rgba(0,0,0,0.9)",
+              }}
+              textStyle={{
+                fontSize: selectedItemTextSize,
+                fontFamily: null,
+              }}
+              textColor={{
+                primary: "rgba(0,0,0,1.0)",
+                secondary: "rgba(0,0,0,0.5)",
+                other: "rgba(0,0,0,0.15)",
+              }}
+            />
+
+            {/* <View style={{ marginBottom: SIZES.small }}>
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
@@ -252,22 +356,12 @@ function handleButtonPress() {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View>
+            </View> */}
 
-            <Text style={styles.userName}>Group order link: </Text>
-            <View style={{ marginBottom: SIZES.small }}>
-              <View style={styles.searchContainer}>
-                <View style={styles.searchWrapper}>
-                  <TextInput
-                    style={{ color: "black" }}
-                    value={link}
-                    onChangeText={(text) => setLink(text)}
-                  />
-                </View>
-              </View>
-            </View>
+            <Text style={[styles.userName, { paddingTop: 20 }]}>
+              Pickup Location:{" "}
+            </Text>
 
-            <Text style={styles.userName}>Pickup Location: </Text>
             <Text style={{ paddingBottom: SIZES.medium }}>
               {nearestAddress}
             </Text>
@@ -314,11 +408,7 @@ function handleButtonPress() {
                 style={styles.searchBtn}
                 onPress={handleSearchButtonClick}
               >
-                <Icons
-                  name='search'
-                  color="#F4EEE0"
-                  size={27}
-                />
+                <Icons name="search" color="#F4EEE0" size={27} />
               </TouchableOpacity>
             </View>
 
