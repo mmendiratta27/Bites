@@ -54,7 +54,8 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
             .collection("threads")
             .doc(doc.id)
             .update({
-              members: arrayUnion(auth?.currentUser?.displayName),
+              membersId: arrayUnion(firebase.auth().currentUser.uid),
+              membersName: arrayUnion(auth?.currentUser?.displayName),
             });
           firebase
             .firestore()
@@ -63,10 +64,22 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
             .collection("members")
             .add({
               user: auth?.currentUser?.displayName,
+              uid: firebase.auth().currentUser.uid,
               createdAt: new Date().getTime(),
             });
         });
       });
+
+    firebase
+      .firestore()
+      .collection("threads")
+      .doc(doc.id)
+      .collection("members")
+      .add({
+        user: auth?.currentUser?.displayName,
+        createdAt: new Date().getTime(),
+      });
+
     firebase
       .firestore()
       .collection("history")
@@ -93,6 +106,7 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
             });
         });
       });
+
     navigation.navigate("ChatHome");
   };
 
@@ -128,7 +142,9 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
         <Text style={styles.timeColor}>
           {item.hour}:{item.minute} {item.isAM ? "AM" : "PM"}
         </Text>
-        <Text style={{ color: "#e0e0e0", marginBottom: 5 }}>0.3 miles away</Text>
+        <Text style={{ color: "#e0e0e0", marginBottom: 5 }}>
+          0.3 miles away
+        </Text>
 
         {/* {!isExpanded && (
           <Text style={styles.textWhite}>More...</Text>

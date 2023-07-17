@@ -42,7 +42,7 @@ const MainNavigator = ({ dimension, navigation }) => {
     firebase
       .auth()
       .signOut()
-      .then(navigation.navigate("Login"))
+      .then(navigation.replace("Login"))
       .catch((error) => {
         console.log("Error", error.toString());
       });

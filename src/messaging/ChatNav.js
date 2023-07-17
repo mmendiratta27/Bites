@@ -38,14 +38,13 @@ const ChatNav = ({ navigation }) => {
           options={({ navigation, route }) => ({
             title: route.params.thread.name,
             headerShadowVisible: false,
-            headerTitle: "TestChat1",
             headerLeft: () => (
               <View style={{ marginLeft: 10 }}>
                 <Icon
                   name="chevron-left"
                   size={30}
                   color="#353535"
-                  onPress={() => navigation.navigate("GroupChats")}
+                  onPress={() => navigation.navigate("ChatHome")}
                 />
               </View>
             ),
