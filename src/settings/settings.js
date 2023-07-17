@@ -1,11 +1,12 @@
 import {
   View,
+  Image,
   Text,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { icons } from "../../constants";
 import { Switch } from "react-native-gesture-handler";
 import styles from "./settings.styles";
@@ -14,6 +15,7 @@ import Profile from "./profile";
 import Icon from "react-native-vector-icons/Feather";
 import email from 'react-native-email'
 import { images } from "../../constants";
+import { auth, db, firebase } from '../../firebase';
 
 
 
@@ -73,15 +75,20 @@ const Settings = ({ navigation }) => {
           <View style={styles.profcontainer}>
             <View style={styles.profprofile}>
               <View style={styles.profileHeader}>
-                <ScreenHeaderBtn
-                  iconUrl={images.profile}
-                  dimension="100%"
-                  style={styles.profileAvatar}
+                <Image
+                    style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 9.6,
+                      }}
+                    source={{
+                        uri: auth?.currentUser?.photoURL
+                    }}
                 />
 
                 <View style={styles.profileBody}>
-                  <Text style={styles.profileName}> Manan Mendiratta </Text>
-                  <Text style={styles.profileHandle}>@mmendiratta</Text>
+                  <Text style={styles.profileName}> {auth.currentUser?.displayName} </Text>
+                  <Text style={styles.profileHandle}> {auth.currentUser?.email} </Text>
                 </View>
               </View>
 

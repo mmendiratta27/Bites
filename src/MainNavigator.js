@@ -1,5 +1,12 @@
-import { useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { useState, useContext } from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  StyleSheet,
+  Button,
+} from "react-native";
 import ScreenHeaderBtn from "./home/headerInfo/ScreenHeaderBtn";
 import { icons, images } from "../constants";
 import { NavigationContainer } from "@react-navigation/native";
@@ -8,6 +15,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import Icons from "react-native-vector-icons/MaterialIcons";
 import { BottomPopup } from "./post-details/BottomPopup";
 import styles from "./feed/FeedPost.style";
+import { auth, db, firebase } from "./../firebase";
 
 //Screens
 import HomeScreen from "./home/homeScreen";
@@ -29,37 +37,15 @@ const image = {
 
 const Tab = createBottomTabNavigator();
 
-const popuplist = [
-  {
-    id: 1,
-    name: "Profile",
-    style: {
-      backgroundColor: "#F4EEE0",
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      borderRadius: 8,
-    },
-    textStyle: {
-      color: "#353535",
-      fontSize: 16,
-      fontWeight: "bold",
-    },
-  },
-  {
-    id: 1,
-    name: "Rating",
-  },
-];
-
-const MainNavigator = ({dimension, navigation}) => {
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-  const showPopup = () => {
-    setIsPopupVisible(true);
-  };
-
-  const hidePopup = () => {
-    setIsPopupVisible(false);
+const MainNavigator = ({ dimension, navigation }) => {
+  const SignOut = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(navigation.navigate("Login"))
+      .catch((error) => {
+        console.log("Error", error.toString());
+      });
   };
 
   return (
@@ -103,6 +89,18 @@ const MainNavigator = ({dimension, navigation}) => {
               backgroundColor: "#F4EEE0",
             },
             headerShadowVisible: false,
+            headerLeft: () => (
+              // <Button title="Logout" onPress={SignOut} />
+              <Icon.Button
+                name="logout"
+                backgroundColor="transparent"
+                onPress={SignOut}
+                color="#353535"
+                style={{ transform: [{ scaleX: -1 }] }}
+                size={25}
+                underlayColor="transparent"
+              />
+            ),
             headerRight: () => (
               <>
                 <TouchableOpacity
@@ -111,7 +109,9 @@ const MainNavigator = ({dimension, navigation}) => {
                 >
                   <View style={[styles.logoContainer, { marginRight: 10 }]}>
                     <Image
-                      source={images.profile}
+                      source={{
+                        uri: auth?.currentUser?.photoURL,
+                      }}
                       // resizeMode="contain"
                       style={{
                         width: 40,
@@ -121,16 +121,9 @@ const MainNavigator = ({dimension, navigation}) => {
                     />
                   </View>
                 </TouchableOpacity>
-                {isPopupVisible && (
-                  <BottomPopup
-                    title="Profile"
-                    onTouchOutside={hidePopup}
-                    data={popuplist}
-                  />
-                )}
               </>
             ),
-            headerTitle: "Group Order",
+            headerTitle: "Bites!",
           }}
         />
         <Tab.Screen
