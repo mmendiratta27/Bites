@@ -60,7 +60,8 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
                 .collection('threads')
                 .doc(doc.id)
                 .update({
-                  members: arrayUnion(auth?.currentUser?.displayName),
+                 membersId: arrayUnion(firebase.auth().currentUser.uid),
+                 membersName: arrayUnion(auth?.currentUser?.displayName),
                 });
                 firebase.firestore()
                 .collection('threads')
@@ -68,6 +69,7 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
                 .collection('members')
                 .add({
                   user: auth?.currentUser?.displayName,
+                  uid: firebase.auth().currentUser.uid,
                   createdAt: new Date().getTime(),
                 });
                 })

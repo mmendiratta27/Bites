@@ -25,6 +25,8 @@ import {
   orderBy,
   onSnapshot,
   where,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { GiftedChat } from "react-native-gifted-chat";
 import darkMode from "./ChatDark";
@@ -41,7 +43,7 @@ export default function HomeScreen({ navigation }) {
   useLayoutEffect(() => {
     const unsubscribe = firebase.firestore()
       .collection('threads')
-      .where("members", "array-contains", auth?.currentUser?.displayName)
+      .where("membersId", "array-contains", firebase.auth().currentUser.uid)
       .orderBy('latestMessage.createdAt', 'desc')
       .onSnapshot(querySnapshot => {
         const threads = querySnapshot.docs.map(documentSnapshot => {
@@ -69,10 +71,54 @@ export default function HomeScreen({ navigation }) {
 
 function handleLeave() {
     firebase.firestore()
-      .collection('threads')
-      .doc(leave._id)
-      .delete()
-      .then (() => {setLeave(null)});
+        .collection('threads')
+        .doc(leave._id)
+        .update({
+          membersId: arrayRemove(firebase.auth().currentUser.uid),
+          membersName: arrayRemove(auth?.currentUser?.displayName),
+        });
+    firebase.firestore()
+        .collection('threads')
+        .doc(leave._id)
+        .get()
+        .then((querySnapshot) => {
+               // doc.data() is never undefined for query doc snapshots
+               if (querySnapshot.data().creator == firebase.auth().currentUser.uid) {
+                   firebase.firestore()
+                       .collection('posts')
+                       .where('creator', '==', firebase.auth().currentUser.uid)
+                       .where('restaurant', '==', querySnapshot.data().name)
+                       .get()
+                       .then((querySnapshot) => {
+                            querySnapshot.forEach((doc) => {
+                              // doc.data() is never undefined for query doc snapshots
+                              firebase.firestore()
+                                  .collection('posts')
+                                  .doc(doc.id)
+                                  .delete()
+                              })
+                          });
+                       }
+                   });
+    firebase.firestore()
+        .collection('threads')
+        .doc(leave._id)
+        .collection('members')
+        .where("uid", "==", firebase.auth().currentUser.uid)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              firebase.firestore()
+              .collection('threads')
+              .doc(leave._id)
+              .collection('members')
+              .doc(doc.id)
+              .delete()
+              })
+            })
+        .then (() => {setLeave(null)});
+
 }
 
 function handleDismissLeave(){

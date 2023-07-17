@@ -6,7 +6,7 @@ import { Avatar } from 'react-native-elements';
 import { signOut } from 'firebase/auth';
 import { collection, addDoc, getDocs, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
-
+//import { ListItem, leftAvatar } from "@react-native-material/core";
 
 export default function MembersPage({route}) {
 
@@ -24,6 +24,7 @@ useLayoutEffect(() => {
             _id: documentSnapshot.id,
             // give defaults
             user: '',
+            avatar: '',
             ...documentSnapshot.data()
           };
         });
@@ -49,8 +50,8 @@ useLayoutEffect(() => {
           ItemSeparatorComponent={() => <Divider />}
           renderItem={({ item }) => (
             <List.Item
-//              leadingMode="avatar"
-//              leading={item.avatar}
+              avatar={{ uri: 'https://th.bing.com/th/id/OIP.I8PNp6d_rS2RIxwPlCVQFAHaHE?pid=ImgDet&rs=1' }}
+//can't get avatar to work
               title={item.user}
               titleNumberOfLines={1}
               titleStyle={styles.listTitle}

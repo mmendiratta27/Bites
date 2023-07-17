@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Input, Button } from "react-native-elements";
-import { auth } from "../../firebase";
+import { auth, db, firebase } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import darkMode from "./styles/darkMode";
 
@@ -36,7 +36,14 @@ const Register = () => {
         const errorMessage = error.message;
         alert(errorMessage);
       });
-  };
+    firebase.firestore()
+       .collection('users')
+       .add({
+         name: name,
+         email: email,
+         avatar: avatar,
+       });
+   };
 
   return (
     <View style={theme == "light" ? styles.container : darkMode.container}>
