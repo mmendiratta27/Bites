@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     // ...SHADOWS.medium,
     // shadowColor: COLORS.white,
   },
+  rowContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   logoContainer: {
     width: 40,
     height: 40,
@@ -28,11 +33,10 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flex: 1,
-    marginHorizontal: SIZES.medium,
+    marginHorizontal: 5,
   },
   jobName: {
-    fontSize: SIZES.medium,
-    fontFamily: "DMBold",
+    fontSize: 17,
     color: COLORS.white,
   },
   jobType: {
@@ -43,19 +47,34 @@ const styles = StyleSheet.create({
     textTransform: "capitalize",
   },
   textWhite: {
-      color: COLORS.white,
-    },
+    color: "#e0e0e0",
+  },
+  timeColor: {
+    paddingVertical: 5,
+    color: "#e0e0e0",
+    fontSize: SIZES.medium,
+  },
   joinButton: {
-      backgroundColor: "#75AAF0", // light blue color
-      padding: 10,
-      borderRadius: 5,
-      marginTop: 10,
-    },
+    backgroundColor: "#F4EEE0",
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+    alignItems: "center",
+    width: "100%",
+  },
 
   joinButtonText: {
-      color: "#fff",
-      textAlign: "center",
-    },
+    color: "#353535",
+    textAlign: "center",
+    alignItems: "center",
+  },
+  mapContainer: {
+    height: 200, // Set an appropriate height for the map container
+    marginVertical: 10,
+  },
+  map: {
+    flex: 1,
+  },
 });
 
 export default styles;

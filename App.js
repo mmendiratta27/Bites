@@ -75,6 +75,7 @@ const App = () => {
         <Stack.Screen
           name="MainNavigator"
           component={MainNavigator}
+          screenOptions={{ animationEnabled: false }}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

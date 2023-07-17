@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   rowWrapper: {
     paddingLeft: 24,
     borderTopWidth: 1,
-    borderColor: "#e3e3e3",
+    borderColor: "#F4EEE0",
     backgroundColor: "#F4EEE0",
   },
   row: {
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: "#e3e3e3",
+    borderColor: "#F4EEE0",
     backgroundColor: "#F4EEE0",
   },
   profileHeader: {

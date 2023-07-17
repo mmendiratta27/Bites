@@ -14,8 +14,8 @@ const Feed = ({ navigation }) => {
 
   const isLoading = false;
   const error = false;
-  const nearbyJobsData = [];
-  const length = nearbyJobsData.length == 0? true : false
+  // const nearbyJobsData = [];
+  // const length = nearbyJobsData.length == 0? true : false
 
     useEffect(() => {
         setLoading(true);

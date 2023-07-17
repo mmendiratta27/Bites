@@ -85,7 +85,7 @@ function handleDismissLeave(){
 
   return (
     <View style={styles.container}>
-      <View >
+      <View style={{marginTop: 10, alignItems: "center"}}>
           <Text style={styles.title}> History</Text>
       </View>
       <View style={styles.tabs}>
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   title:{
-      fontSize:20,
+      fontSize:18,
       alignContent: 'center',
       fontWeight:'700',
       color: '#1d1d1d',
@@ -216,12 +216,12 @@ const styles = StyleSheet.create({
     borderBottomColor: 'black',
   },
   tabText: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
-    color: 'black',
+    color: '#353535',
   },
   activeTabText: {
-    color: 'black',
+    color: '#353535',
   },
   achievement: {
     flexDirection: 'row',
