@@ -62,60 +62,67 @@ const MapComponent = ({ navigation }) => {
 
 function handleButtonPress() {
   if (restaurant.length > 0) {
-    firebase.firestore()
-      .collection('threads')
-      .add({
-        name: restaurant,
-        members: [auth?.currentUser?.displayName],
-        uid: firebase.auth().currentUser.uid, // user who created the post
-        latestMessage: {
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime()
-        }
-      })
-      .then(docRef => {
-        docRef.collection('messages').add({
-          text: `You have joined ${restaurant}.`,
-          createdAt: new Date().getTime(),
-          system: true
-        });
-        docRef.collection('members').add({
-          user: auth?.currentUser?.displayName,
-          createdAt: new Date().getTime(),
-        });
-      });
-    firebase.firestore()
-        .collection('history')
+      firebase.firestore()
+        .collection('threads')
         .add({
           name: restaurant,
-          members: [auth?.currentUser?.displayName],
-          createdAt: new Date().getTime(),
-          uid: firebase.auth().currentUser.uid, // user who created the post
+          membersId: [firebase.auth().currentUser.uid],
+          membersName: [auth?.currentUser?.displayName],
+          creator: firebase.auth().currentUser.uid, // user who created the post
+          latestMessage: {
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime()
+          }
         })
         .then(docRef => {
+          docRef.collection('messages').add({
+            text: `You have joined ${restaurant}.`,
+            createdAt: new Date().getTime(),
+            system: true
+          });
           docRef.collection('members').add({
             user: auth?.currentUser?.displayName,
+            uid: firebase.auth().currentUser.uid,
+            avatar: auth?.currentUser?.photoURL,
             createdAt: new Date().getTime(),
           });
         });
-    firebase.firestore()
-        .collection('posts')
-        .add({
-          restaurant,
-          hour,
-          minute,
-          isAM,
-          link,
-          nearestAddress,
-          searchValue,
-          comments,
-          uid: firebase.auth().currentUser.uid, // user who created the post
-          createdAt: new Date().getTime(),
-        });
-    setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
-    setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
-    navigation.navigate('homeScreen');
-  }
+      firebase.firestore()
+          .collection('history')
+          .add({
+            name: restaurant,
+            membersId: [firebase.auth().currentUser.uid],
+            membersName: [auth?.currentUser?.displayName],
+            createdAt: new Date().getTime(),
+            creator: firebase.auth().currentUser.uid, // user who created the post
+          })
+          .then(docRef => {
+            docRef.collection('members').add({
+              user: auth?.currentUser?.displayName,
+              uid: firebase.auth().currentUser.uid,
+              avatar: auth?.currentUser?.photoURL,
+              createdAt: new Date().getTime(),
+            });
+          });
+      firebase.firestore()
+          .collection('posts')
+          .add({
+            restaurant,
+            hour,
+            minute,
+            isAM,
+            link,
+            nearestAddress,
+            searchValue,
+            comments,
+            creator: firebase.auth().currentUser.uid, // user who created the post
+            createdAt: new Date().getTime(),
+          });
+      setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
+      setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
+      setTimeout(handleLeavePost, 604800000); // 1 week in milliseconds
+      navigation.navigate('homeScreen');
+    }
 }
 
 
@@ -143,6 +150,17 @@ function handleLeaveWeek() {
         });
 }
 
+function handleLeavePost() {
+    firebase.firestore()
+      .collection('post')
+      .where("name", "==", restaurant)
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.docs[0] !== undefined) {
+            querySnapshot.docs[0].ref.delete();
+            };
+        });
+}
 
 
 

@@ -121,6 +121,7 @@ export default function Chat({ route }) {
         user: {
           _id: auth?.currentUser?.email,
           name: auth?.currentUser?.displayName,
+          uid: firebase.auth().currentUser.uid,
         },
       });
 
