@@ -25,14 +25,14 @@ import { GiftedChat } from 'react-native-gifted-chat';
 
 import { StatusBar } from "expo-status-bar";
 // import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import RNDateTimeSelector from "react-native-date-time-scroll-picker";
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from "react-native-responsive-screen";
+// import RNDateTimeSelector from "react-native-date-time-scroll-picker";
+// import {
+//   widthPercentageToDP as wp,
+//   heightPercentageToDP as hp,
+// } from "react-native-responsive-screen";
 
 const borderWidth = 25;
-const setTimerWidthHeight = wp(50);
+const setTimerWidthHeight = 50;
 const selectedItemTextSize = 25;
 const wrapperHeight = setTimerWidthHeight - borderWidth * 2;
 
@@ -356,7 +356,7 @@ function handleLeavePost() {
               <Text style={styles.userName}>Time order will be placed: </Text>
             </View>
 
-            <RNDateTimeSelector
+            {/* <RNDateTimeSelector
               dataSet={dataSet}
               onValueChange={(value) => {
                 console.log("data on users end :   ... ", value);
@@ -390,9 +390,9 @@ function handleLeavePost() {
                 secondary: "rgba(0,0,0,0.5)",
                 other: "rgba(0,0,0,0.15)",
               }}
-            />
+            /> */}
 
-            {/* <View style={{ marginBottom: SIZES.small }}>
+            <View style={{ marginBottom: SIZES.small }}>
               <View style={styles.searchContainer}>
                 <View style={styles.searchWrapper}>
                   <TextInput
@@ -443,7 +443,7 @@ function handleLeavePost() {
                   </TouchableOpacity>
                 </View>
               </View>
-            </View> */}
+            </View>
 
             <Text style={[styles.userName, { paddingTop: 20 }]}>
               Pickup Location:{" "}

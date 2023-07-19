@@ -1,9 +1,9 @@
 {
   "expoServerPort": null,
-  "packagerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "packagerPort": 19000,
+  "expoServerNgrokUrl": "https://5y-m5j.mmendiratta27.groupdelivery.exp.direct",
+  "packagerNgrokUrl": "https://5y-m5j.mmendiratta27.groupdelivery.exp.direct",
+  "ngrokPid": 87513,
   "packagerPid": null,
   "webpackServerPort": null
 }
