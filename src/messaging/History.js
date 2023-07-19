@@ -26,43 +26,45 @@ export default function Profile({navigation}) {
 useLayoutEffect(() => {
     const unsubscribe =
       firebase.firestore()
+           .collection('history')
+           .where("membersId", "array-contains", firebase.auth().currentUser.uid)
+           .where("creator", "!=", firebase.auth().currentUser.uid)
+           .orderBy('creator', 'desc')
+           .orderBy('createdAt', 'desc')
+           .onSnapshot(querySnapshot => {
+               const join = querySnapshot.docs.map(documentSnapshot => {
+                 return {
+                   _id: documentSnapshot.id,
+                   // give defaults
+                   restaurant: '',
+                   createdAt: '',
+                   membersId: [],
+                   membersName: [],
+                   ...documentSnapshot.data()
+                 };
+               });
+               setJoined(join);
+           });
+      firebase.firestore()
           .collection('history')
+          .where("membersId", "array-contains", firebase.auth().currentUser.uid)
           .where("creator", "==", firebase.auth().currentUser.uid)
           .orderBy('createdAt', 'desc')
           .onSnapshot(querySnapshot => {
-             const threads = querySnapshot.docs.map(documentSnapshot => {
+             const create = querySnapshot.docs.map(documentSnapshot => {
                return {
                  _id: documentSnapshot.id,
                  // give defaults
-                 name: '',
+                 restaurant: '',
                  createdAt: '',
                  membersId: [],
                  membersName: [],
                  ...documentSnapshot.data()
                };
              });
-             setThreads(threads);
+             setCreated(create);
            });
-      firebase.firestore()
-         .collection('history')
-         .where("membersId", "array-contains", firebase.auth().currentUser.uid)
-         .where("creator", "!=", firebase.auth().currentUser.uid)
-         .orderBy('creator', 'desc')
-         .orderBy('createdAt', 'desc')
-         .onSnapshot(querySnapshot => {
-             const thread = querySnapshot.docs.map(documentSnapshot => {
-               return {
-                 _id: documentSnapshot.id,
-                 // give defaults
-                 name: '',
-                 createdAt: '',
-                 membersId: [],
-                 membersName: [],
-                 ...documentSnapshot.data()
-               };
-             });
-             setThread(thread);
-          });
+
 
     /**
      * unsubscribe listener
@@ -72,10 +74,31 @@ useLayoutEffect(() => {
 
 function handleLeave() {
     firebase.firestore()
-      .collection('history')
-      .doc(leave._id)
-      .delete()
-      .then (() => {setLeave(null)});
+        .collection('history')
+        .doc(leave._id)
+        .update({
+          membersId: arrayRemove(firebase.auth().currentUser.uid),
+          membersName: arrayRemove(auth?.currentUser?.displayName),
+        });
+    firebase.firestore()
+        .collection('history')
+        .doc(leave._id)
+        .collection('historyMembers')
+        .where("uid", "==", firebase.auth().currentUser.uid)
+        .get()
+        .then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              // doc.data() is never undefined for query doc snapshots
+              firebase.firestore()
+              .collection('history')
+              .doc(leave._id)
+              .collection('historyMembers')
+              .doc(doc.id)
+              .delete()
+              })
+            })
+        .then (() => {setLeave(null)});
+
 }
 
 function handleDismissLeave(){
@@ -108,7 +131,7 @@ function handleDismissLeave(){
         <>
           <View style={styles.containers}>
               <FlatList
-                data={threads}
+                data={created}
                 keyExtractor={item => item._id}
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
@@ -116,7 +139,7 @@ function handleDismissLeave(){
                      onLongPress={() => setLeave(item)}
                    >
                   <List.Item
-                    title={item.name} //item.latestMessage.createdAt
+                    title={item.restaurant} //item.latestMessage.createdAt
                     description= {item.membersName.join(", ")}
                     titleNumberOfLines={1}
                     titleStyle={styles.listTitle}
@@ -133,7 +156,7 @@ function handleDismissLeave(){
         <>
           <View style={styles.containers}>
               <FlatList
-                data={thread}
+                data={joined}
                 keyExtractor={item => item._id}
                 ItemSeparatorComponent={() => <Divider />}
                 renderItem={({ item }) => (
@@ -141,7 +164,7 @@ function handleDismissLeave(){
                      onLongPress={() => setLeave(item)}
                    >
                   <List.Item
-                    title={item.name} //item.latestMessage.createdAt
+                    title={item.restaurant} //item.latestMessage.createdAt
                     description= {item.membersName.join(", ")}
                     titleNumberOfLines={1}
                     titleStyle={styles.listTitle}

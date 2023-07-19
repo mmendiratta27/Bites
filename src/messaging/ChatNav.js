@@ -36,7 +36,7 @@ const ChatNav = ({ navigation }) => {
           name="Chat"
           component={ChatScreen}
           options={({ navigation, route }) => ({
-            title: route.params.thread.name,
+            title: route.params.thread.restaurant,
             headerShadowVisible: false,
             headerLeft: () => (
               <View style={{ marginLeft: 10 }}>

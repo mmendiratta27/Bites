@@ -50,7 +50,7 @@ export default function HomeScreen({ navigation }) {
           return {
             _id: documentSnapshot.id,
             // give defaults
-            name: '',
+            restaurant: '',
             latestMessage: {
                 text: ''
               },
@@ -85,15 +85,15 @@ function handleLeave() {
                // doc.data() is never undefined for query doc snapshots
                if (querySnapshot.data().creator == firebase.auth().currentUser.uid) {
                    firebase.firestore()
-                       .collection('posts')
+                       .collection('threads')
                        .where('creator', '==', firebase.auth().currentUser.uid)
-                       .where('restaurant', '==', querySnapshot.data().name)
+                       .where('restaurant', '==', querySnapshot.data().restaurant)
                        .get()
                        .then((querySnapshot) => {
                             querySnapshot.forEach((doc) => {
                               // doc.data() is never undefined for query doc snapshots
                               firebase.firestore()
-                                  .collection('posts')
+                                  .collection('threads')
                                   .doc(doc.id)
                                   .delete()
                               })
@@ -103,7 +103,7 @@ function handleLeave() {
     firebase.firestore()
         .collection('threads')
         .doc(leave._id)
-        .collection('members')
+        .collection('threadsMembers')
         .where("uid", "==", firebase.auth().currentUser.uid)
         .get()
         .then((querySnapshot) => {
@@ -112,7 +112,7 @@ function handleLeave() {
               firebase.firestore()
               .collection('threads')
               .doc(leave._id)
-              .collection('members')
+              .collection('threadsMembers')
               .doc(doc.id)
               .delete()
               })
@@ -150,7 +150,7 @@ function handleDismissLeave(){
             <Text
               style={theme === "light" ? styles.listTitle : darkMode.listTitle}
             >
-              {item.name}
+              {item.restaurant}
             </Text>
             <Text
               style={
