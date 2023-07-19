@@ -100,9 +100,17 @@ function handleButtonPress() {
       firebase.firestore()
         .collection('threads')
         .add({
-          name: restaurant,
           membersId: [firebase.auth().currentUser.uid],
           membersName: [auth?.currentUser?.displayName],
+          restaurant,
+          hour,
+          minute,
+          isAM,
+          link,
+          nearestAddress,
+          searchValue,
+          comments,
+          createdAt: new Date().getTime(),
           creator: firebase.auth().currentUser.uid, // user who created the post
           latestMessage: {
             text: `You have joined ${restaurant}.`,
@@ -111,11 +119,12 @@ function handleButtonPress() {
         })
         .then(docRef => {
           docRef.collection('messages').add({
-            text: `You have joined ${restaurant}.`,
+            text: `${auth?.currentUser?.displayName} has created ${restaurant}.`,
+            text: `The group order link is ${link}.`,
             createdAt: new Date().getTime(),
             system: true
           });
-          docRef.collection('members').add({
+          docRef.collection('threadsMembers').add({
             user: auth?.currentUser?.displayName,
             uid: firebase.auth().currentUser.uid,
             avatar: auth?.currentUser?.photoURL,
@@ -125,37 +134,23 @@ function handleButtonPress() {
       firebase.firestore()
           .collection('history')
           .add({
-            name: restaurant,
+            restaurant: restaurant,
             membersId: [firebase.auth().currentUser.uid],
             membersName: [auth?.currentUser?.displayName],
             createdAt: new Date().getTime(),
             creator: firebase.auth().currentUser.uid, // user who created the post
           })
           .then(docRef => {
-            docRef.collection('members').add({
+            docRef.collection('historyMembers').add({
               user: auth?.currentUser?.displayName,
               uid: firebase.auth().currentUser.uid,
               avatar: auth?.currentUser?.photoURL,
               createdAt: new Date().getTime(),
             });
           });
-      firebase.firestore()
-          .collection('posts')
-          .add({
-            restaurant,
-            hour,
-            minute,
-            isAM,
-            link,
-            nearestAddress,
-            searchValue,
-            comments,
-            creator: firebase.auth().currentUser.uid, // user who created the post
-            createdAt: new Date().getTime(),
-          });
       setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
       setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
-      setTimeout(handleLeavePost, 604800000); // 1 week in milliseconds
+//      setTimeout(handleLeavePost, 604800000); // 1 week in milliseconds
       navigation.navigate('homeScreen');
     }
 }
@@ -164,7 +159,7 @@ function handleButtonPress() {
 function handleLeaveDay() {
     firebase.firestore()
       .collection('threads')
-      .where("name", "==", restaurant)
+      .where("restaurant", "==", restaurant)
       .get()
       .then(querySnapshot => {
         if (querySnapshot.docs[0] !== undefined) {
@@ -176,7 +171,7 @@ function handleLeaveDay() {
 function handleLeaveWeek() {
     firebase.firestore()
       .collection('history')
-      .where("name", "==", restaurant)
+      .where("restaurant", "==", restaurant)
       .get()
       .then(querySnapshot => {
           if (querySnapshot.docs[0] !== undefined) {
@@ -185,17 +180,8 @@ function handleLeaveWeek() {
         });
 }
 
-function handleLeavePost() {
-    firebase.firestore()
-      .collection('post')
-      .where("name", "==", restaurant)
-      .get()
-      .then(querySnapshot => {
-        if (querySnapshot.docs[0] !== undefined) {
-            querySnapshot.docs[0].ref.delete();
-            };
-        });
-}
+
+
 
 
 

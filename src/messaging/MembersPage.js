@@ -17,7 +17,7 @@ useLayoutEffect(() => {
     const unsubscribe = firebase.firestore()
       .collection('threads')
       .doc(route.params.thread._id)
-      .collection('members')
+      .collection('threadsMembers')
       .onSnapshot(querySnapshot => {
         const members = querySnapshot.docs.map(documentSnapshot => {
           return {

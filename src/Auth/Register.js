@@ -42,6 +42,7 @@ const Register = () => {
          name: name,
          email: email,
          avatar: avatar,
+         createdAt: new Date().getTime(),
        });
    };
 

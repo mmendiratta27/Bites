@@ -3,19 +3,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import styles from "./FeedPost.style";
 import { BottomPopup } from "./../post-details/BottomPopup";
 import { useNavigation } from "@react-navigation/native";
-import {
-  collection,
-  addDoc,
-  getDocs,
-  arrayUnion,
-  update,
-  doc,
-  getDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  where,
-} from "firebase/firestore";
+import { collection, addDoc, getDocs, arrayUnion, update, doc, getDoc, query, orderBy, onSnapshot, where } from 'firebase/firestore';
 import { auth, db, firebase } from "../../firebase";
 import MapView, { Marker } from "react-native-maps";
 
@@ -40,75 +28,69 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
     }
   }, [item.nearestAddress]);
 
-  const goToChatPage = () => {
-    firebase
-      .firestore()
-      .collection("threads")
-      .where("name", "==", item.restaurant)
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          // doc.data() is never undefined for query doc snapshots
-          firebase
-            .firestore()
-            .collection("threads")
+const goToChatPage = () => {
+    firebase.firestore()
+        .collection('threads')
+        .where("restaurant", "==", item.restaurant)
+        .where("creator", "==", item.creator)
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            firebase.firestore()
+            .collection('threads')
             .doc(doc.id)
             .update({
-              membersId: arrayUnion(firebase.auth().currentUser.uid),
-              membersName: arrayUnion(auth?.currentUser?.displayName),
+             membersId: arrayUnion(firebase.auth().currentUser.uid),
+             membersName: arrayUnion(auth?.currentUser?.displayName),
             });
-          firebase
-            .firestore()
-            .collection("threads")
+            firebase.firestore()
+            .collection('threads')
             .doc(doc.id)
-            .collection("members")
+            .collection('threadsMembers')
             .add({
               user: auth?.currentUser?.displayName,
               uid: firebase.auth().currentUser.uid,
               createdAt: new Date().getTime(),
             });
+          })
         });
-      });
-
-    firebase
-      .firestore()
-      .collection("threads")
-      .doc(doc.id)
-      .collection("members")
-      .add({
-        user: auth?.currentUser?.displayName,
-        createdAt: new Date().getTime(),
-      });
-
-    firebase
-      .firestore()
-      .collection("history")
-      .where("name", "==", item.restaurant)
+    firebase.firestore()
+      .collection('threads')
+      .then(docRef => {
+        docRef.collection('messages').add({
+          text: `${auth?.currentUser?.displayName} has joined ${restaurant}.`,
+          createdAt: new Date().getTime(),
+          system: true
+        });
+    firebase.firestore()
+      .collection('history')
+      .where("restaurant", "==", item.restaurant)
+      .where("creator", "==", item.creator)
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           // doc.data() is never undefined for query doc snapshots
-          firebase
-            .firestore()
-            .collection("history")
-            .doc(doc.id)
-            .update({
-              members: arrayUnion(auth?.currentUser?.displayName),
-            });
-          firebase
-            .firestore()
-            .collection("history")
-            .doc(doc.id)
-            .collection("members")
-            .add({
-              user: auth?.currentUser?.displayName,
-              createdAt: new Date().getTime(),
-            });
-        });
+          firebase.firestore()
+          .collection('history')
+          .doc(doc.id)
+          .update({
+            membersName: arrayUnion(auth?.currentUser?.displayName),
+            membersId: arrayUnion(firebase.auth().currentUser.uid),
+          });
+          firebase.firestore()
+          .collection('history')
+          .doc(doc.id)
+          .collection('historyMembers')
+          .add({
+            user: auth?.currentUser?.displayName,
+            uid: firebase.auth().currentUser.uid,
+            createdAt: new Date().getTime(),
+          })
+        })
       });
-
-    navigation.navigate("ChatHome");
-  };
+   navigation.navigate("ChatHome");
+};
 
   const handleDelete = () => {
     deletePost(item.id); // Assume deletePost is a function that deletes a post by id.
@@ -138,7 +120,19 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={toggleExpanded}>
       <View style={styles.textContainer}>
-        <Text style={styles.jobName}>{item.restaurant}</Text>
+        {item.membersId.filter((element) => element == firebase.auth().currentUser.uid) == firebase.auth().currentUser.uid && (
+           <View>
+            {item.creator == firebase.auth().currentUser.uid && (
+                <Text style={styles.textWhite}>{item.restaurant} (Created)</Text>
+            )}
+            {item.creator != firebase.auth().currentUser.uid && (
+                <Text style={styles.textWhite}>{item.restaurant} (Joined)</Text>
+            )}
+            </View>
+        )}
+        {item.membersId.filter((element) => element == firebase.auth().currentUser.uid) != firebase.auth().currentUser.uid && (
+            <Text style={styles.textWhite}>{item.restaurant}</Text>
+        )}
         <Text style={styles.timeColor}>
           {item.hour}:{item.minute} {item.isAM ? "AM" : "PM"}
         </Text>
@@ -157,9 +151,11 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
             </Text>
 
             <Text style={styles.textWhite}>{item.comments}</Text>
-            <TouchableOpacity style={styles.joinButton} onPress={goToChatPage}>
-              <Text style={styles.joinButtonText}>Join this Group order</Text>
-            </TouchableOpacity>
+            {item.membersId.filter((element) => element == firebase.auth().currentUser.uid) != firebase.auth().currentUser.uid && (
+                <TouchableOpacity style={styles.joinButton} onPress={goToChatPage}>
+                  <Text style={styles.joinButtonText}>Join this Group order</Text>
+                </TouchableOpacity>
+            )}
           </>
         )}
       </View>

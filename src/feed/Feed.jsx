@@ -19,7 +19,7 @@ const Feed = ({ navigation }) => {
 
     useEffect(() => {
         setLoading(true);
-        const unsubscribe = onSnapshot(collection(db, 'posts'), (snapshot) => {
+        const unsubscribe = onSnapshot(collection(db, 'threads'), (snapshot) => {
           setPosts(snapshot.docs.map(doc => ({id: doc.id, data: doc.data()})));
           setLoading(false);
         });
