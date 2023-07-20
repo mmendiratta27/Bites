@@ -62,7 +62,8 @@ const goToChatPage = () => {
           text: `${auth?.currentUser?.displayName} has joined ${restaurant}.`,
           createdAt: new Date().getTime(),
           system: true
-        });
+        })
+      });
     firebase.firestore()
       .collection('history')
       .where("restaurant", "==", item.restaurant)
