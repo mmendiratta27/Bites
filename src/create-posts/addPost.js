@@ -94,6 +94,8 @@ const MapComponent = ({ navigation }) => {
 
 //Chat Stuff
 
+//when a user created a post, a thread and history thread will be created containing all of the
+//information they provide. A timer will also be started (more below).
 
 function handleButtonPress() {
   if (restaurant.length > 0) {
@@ -113,14 +115,18 @@ function handleButtonPress() {
           createdAt: new Date().getTime(),
           creator: firebase.auth().currentUser.uid, // user who created the post
           latestMessage: {
-            text: `You have joined ${restaurant}.`,
+            text: `${auth?.currentUser?.displayName} has created ${restaurant}.`,
             createdAt: new Date().getTime()
           }
         })
         .then(docRef => {
           docRef.collection('messages').add({
-            text: `${auth?.currentUser?.displayName} has created ${restaurant}.`,
             text: `The group order link is ${link}.`,
+            createdAt: new Date().getTime(),
+            system: true
+          });
+          docRef.collection('messages').add({
+            text: `${auth?.currentUser?.displayName} has created ${restaurant}.`,
             createdAt: new Date().getTime(),
             system: true
           });
@@ -150,11 +156,14 @@ function handleButtonPress() {
           });
       setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
       setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
-//      setTimeout(handleLeavePost, 604800000); // 1 week in milliseconds
       navigation.navigate('homeScreen');
     }
 }
-
+//The two "setTimeout" functions above call the below functions after a certian amount of
+//milliseconds. It should delete the thread after 1 day and the history after 1 week. I tested
+//this out with a 30 second timer and it works, but I haven't seen it work for the longer times
+//and I think it's because I've never been logged in for that long. I hope it will still work
+//for the real thing.
 
 function handleLeaveDay() {
     firebase.firestore()

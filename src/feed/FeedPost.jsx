@@ -28,6 +28,13 @@ const FeedPost = ({ item, handleNavigate, deletePost }) => {
     }
   }, [item.nearestAddress]);
 
+
+//The following chat stuff is backend for when someone joins a post.
+//When they click "join" their username and user id will be added to
+//the thread that they are joining, and in the chat it will say that
+//they have joined. They will also be added to the history collection.
+
+
 const goToChatPage = () => {
     firebase.firestore()
         .collection('threads')
@@ -52,18 +59,18 @@ const goToChatPage = () => {
               user: auth?.currentUser?.displayName,
               uid: firebase.auth().currentUser.uid,
               createdAt: new Date().getTime(),
-            });
+            })
+            firebase.firestore()
+              .collection('threads')
+              .doc(doc.id)
+              .collection('messages')
+              .add({
+                text: `${auth?.currentUser?.displayName} has joined ${item.restaurant}.`,
+                createdAt: new Date().getTime(),
+                system: true
+              });
           })
         });
-    firebase.firestore()
-      .collection('threads')
-      .then(docRef => {
-        docRef.collection('messages').add({
-          text: `${auth?.currentUser?.displayName} has joined ${restaurant}.`,
-          createdAt: new Date().getTime(),
-          system: true
-        })
-      });
     firebase.firestore()
       .collection('history')
       .where("restaurant", "==", item.restaurant)
@@ -93,9 +100,12 @@ const goToChatPage = () => {
    navigation.navigate("ChatHome");
 };
 
-  const handleDelete = () => {
-    deletePost(item.id); // Assume deletePost is a function that deletes a post by id.
-  };
+//Currently the only way to delete a chat is for the creator of the chat to
+//delete the group chat for the post (this is all handles in ChatHome).
+
+//   const handleDelete = () => {
+//     deletePost(item.id); // Assume deletePost is a function that deletes a post by id.
+//   };
 
   const mapRef = useRef(null);
   const [region, setRegion] = useState(null);
@@ -117,6 +127,12 @@ const goToChatPage = () => {
       console.log("Error retrieving address:", error);
     }
   };
+
+// If a user has created a post, it will say created next to the restaurant
+//name. If they have join, it will say joined. Otherwise it won't say anything
+//next to the restaurant name. If the user's id is part of the post backend,
+//then the "join" button will not appear, since they have already joined. If
+//they leave then the join button will appear again.
 
   return (
     <TouchableOpacity style={styles.container} onPress={toggleExpanded}>

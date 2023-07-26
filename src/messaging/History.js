@@ -4,15 +4,15 @@ import { Title, IconButton, button, List, Divider, Dialog, Portal } from 'react-
 import { auth, db, firebase } from '../../firebase';
 import { Avatar } from 'react-native-elements';
 import { signOut } from 'firebase/auth';
-import { collection, addDoc, getDocs, query, orderBy, onSnapshot, where } from 'firebase/firestore';
+import { collection, addDoc, getDocs, query, orderBy, onSnapshot, where, arrayRemove } from 'firebase/firestore';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 
 
 export default function Profile({navigation}) {
 
- const [threads, setThreads] = useState([]);
- const [thread, setThread] = useState([]);
+ const [created, setCreated] = useState([]);
+ const [joined, setJoined] = useState([]);
  const [leave, setLeave] = useState(null);
 
  const [activeTab, setActiveTab] = useState('CreatedPosts');
@@ -22,6 +22,7 @@ export default function Profile({navigation}) {
        setActiveTab(tab);
      };
 
+//the threads displayed here are all of the chats a user has ever been a member of.
 
 useLayoutEffect(() => {
     const unsubscribe =
@@ -72,6 +73,10 @@ useLayoutEffect(() => {
     return () => unsubscribe();
   }, []);
 
+//You can delete yourself from the history, but this deletes you for everyone, which we don't
+//want. We want others to still see who was in the chat with them, so maybe this feature
+//shouldn't be used.
+
 function handleLeave() {
     firebase.firestore()
         .collection('history')
@@ -105,6 +110,8 @@ function handleDismissLeave(){
     setLeave(null);
 }
 
+//The threads above are split into two tabs. One tab shows you the posts/chats that you created
+//and the other shows posts/chats that you had joined.
 
   return (
     <View style={styles.container}>

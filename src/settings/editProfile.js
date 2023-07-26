@@ -45,6 +45,11 @@ export default function EditProfile({ navigation }) {
   const [NewAvatar, setNewAvatar] = useState("");
   const auth = getAuth();
 
+
+//When a user edits their profile their information will go to firebase and will change the
+//current information in firebase with the new information. When they press "update" the app
+//needs to be reloaded for the changes to show.
+
   function handleButtonPress() {
     if (UserName.length > 0) {
       firebase

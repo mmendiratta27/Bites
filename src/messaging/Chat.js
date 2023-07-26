@@ -70,6 +70,9 @@ export default function Chat({ route }) {
     );
   }
 
+//This gets the thread from ChatNav and uses it to show all of the messages in the messages
+//collection. When a messages is added, it is added to the messaging collection.
+
   const { thread } = route.params;
 
   useLayoutEffect(() => {
