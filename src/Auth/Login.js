@@ -17,6 +17,9 @@ const Login = ({ navigation }) => {
   //   setTheme(scheme.colorScheme())
   // })
 
+//If a user is detected as signed in when the app loads, they will be automatically taken to
+//the home page. If they aren't signed in they will be taken to the login page.
+
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
 
@@ -32,6 +35,9 @@ onAuthStateChanged(auth, (user) => {
   const openRegisterScreen = () => {
     navigation.navigate("Register");
   };
+
+//This function signs a user in with email and password using firebase and then takes them to
+//the home page.
 
   const signin = () => {
     signInWithEmailAndPassword(auth, email, password)

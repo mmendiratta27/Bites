@@ -4,7 +4,7 @@ import { initializeAuth, getAuth, browserLocalPersistence, setPersistence } from
 import Constants from "expo-constants"
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firestore from 'firebase/compat/firestore';
 import 'firebase/compat/functions';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getReactNativePersistence } from "firebase/auth/react-native"

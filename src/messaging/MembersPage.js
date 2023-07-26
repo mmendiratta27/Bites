@@ -13,6 +13,9 @@ export default function MembersPage({route}) {
   const [members, setMembers] = useState([]);
 //  const { thread } = route.params;
 
+//this page gets the member information for the thread from firebase and displays the users that
+//are currently members of the chat.
+
 useLayoutEffect(() => {
     const unsubscribe = firebase.firestore()
       .collection('threads')

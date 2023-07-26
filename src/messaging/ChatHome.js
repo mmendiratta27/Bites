@@ -40,6 +40,9 @@ export default function HomeScreen({ navigation }) {
     navigation.replace("homeScreen");
   };
 
+// The chats displayed on this page are all of the threads where the user's id is part of the
+//members.
+
   useLayoutEffect(() => {
     const unsubscribe = firebase.firestore()
       .collection('threads')
@@ -68,8 +71,21 @@ export default function HomeScreen({ navigation }) {
     return () => unsubscribe();
   }, []);
 
+//When you hold down on a chat (LongPress) you will be able to remove yourself from the group
+//chat. Your username and id will be removed from the members in threads, but not in history
+//so that you can see what chats were used to be a part of. If you are the creator of the chat
+//you will delete the chat and post for everyone.
 
 function handleLeave() {
+    firebase.firestore()
+        .collection('threads')
+        .doc(leave._id)
+        .collection('messages')
+        .add({
+            text: `${auth?.currentUser?.displayName} has left ${leave.restaurant}.`,
+            createdAt: new Date().getTime(),
+            system: true
+        });
     firebase.firestore()
         .collection('threads')
         .doc(leave._id)
@@ -84,6 +100,7 @@ function handleLeave() {
         .then((querySnapshot) => {
                // doc.data() is never undefined for query doc snapshots
                if (querySnapshot.data().creator == firebase.auth().currentUser.uid) {
+                   //add send notification for when a post is deleted
                    firebase.firestore()
                        .collection('threads')
                        .where('creator', '==', firebase.auth().currentUser.uid)

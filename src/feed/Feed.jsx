@@ -17,6 +17,8 @@ const Feed = ({ navigation }) => {
   // const nearbyJobsData = [];
   // const length = nearbyJobsData.length == 0? true : false
 
+//This function just gets all of the threads information and sends it to FeedPost
+
     useEffect(() => {
         setLoading(true);
         const unsubscribe = onSnapshot(collection(db, 'threads'), (snapshot) => {

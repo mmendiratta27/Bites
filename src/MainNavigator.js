@@ -37,6 +37,10 @@ const image = {
 
 const Tab = createBottomTabNavigator();
 
+
+// This first SignOut function signs a user out in firebase and takes them to
+//the login page. Now when the app is reloaded a user won't be automatically signed in.
+
 const MainNavigator = ({ dimension, navigation }) => {
   const SignOut = () => {
     firebase

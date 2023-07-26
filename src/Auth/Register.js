@@ -13,6 +13,10 @@ const Register = () => {
   const [avatar, setAvatar] = useState("");
   const [theme, setTheme] = useState("light");
 
+//This function allows a user to be created using email and password. It will also add the user
+//to the user collection in firebase.
+
+
   const register = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
