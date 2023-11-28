@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { View, ScrollView, SafeAreaView } from "react-native";
 import { SIZES } from "../../constants";
 import {auth, db, firebase} from '../../firebase';
+import {Firebase} from '@react-native-firebase/firestore';
 
 import Welcome from "./headerInfo/welcome/Welcome";
 import Feed from "../feed/Feed";
@@ -17,11 +18,54 @@ const Home = ({ navigation }) => {
     }
   }, []);
 
+
+//The "refresh" function below will refresh the page every 100 milliseconds. When a post is created
+// an "endAt" time is created as either 1 day later or 1 week later. If the endAt date has expired,
+// the thread/history will delete from firebase.
+
+   const refresh = () => {
+
+    firebase.firestore()
+      .collection('threads')
+      .where("endAt", "<", new Date())
+      .get()
+      .then(querySnapshot => {
+        if (querySnapshot.docs[0] !== undefined) {
+            querySnapshot.docs[0].ref.delete();
+            };
+        });
+
+
+    firebase.firestore()
+      .collection('history')
+      .where("endAt", "<", new Date())
+      .get()
+      .then(querySnapshot => {
+          if (querySnapshot.docs[0] !== undefined) {
+              querySnapshot.docs[0].ref.delete();
+              };
+        });
+};
+
+ useEffect(() => {
+    const refreshInterval = setInterval(refresh, 100);
+
+    return () => {
+    clearInterval(refreshInterval);
+    };
+  }, []);
+
   const handleSearch = () => {
     if (searchTerm) {
       navigation.navigate(`/search/${searchTerm}`);
     }
   };
+
+
+
+
+
+
 
   return (
     <SafeAreaView
