@@ -175,6 +175,7 @@ const goToChatPage = () => {
             )}
           </>
         )}
+{/*          add if there are no chats yet???   */}
       </View>
     </TouchableOpacity>
   );
