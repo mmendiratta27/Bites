@@ -95,7 +95,7 @@ const MapComponent = ({ navigation }) => {
 //Chat Stuff
 
 //when a user created a post, a thread and history thread will be created containing all of the
-//information they provide. A timer will also be started (more below).
+//information they provide.
 
 function handleButtonPress() {
   if (restaurant.length > 0) {
@@ -112,7 +112,8 @@ function handleButtonPress() {
           nearestAddress,
           searchValue,
           comments,
-          createdAt: new Date().getTime(),
+          createdAt: new Date(),
+          endAt: new Date(Date.now() + 86400000),   //1 day in milliseconds
           creator: firebase.auth().currentUser.uid, // user who created the post
           latestMessage: {
             text: `${auth?.currentUser?.displayName} has created ${restaurant}.`,
@@ -143,7 +144,8 @@ function handleButtonPress() {
             restaurant: restaurant,
             membersId: [firebase.auth().currentUser.uid],
             membersName: [auth?.currentUser?.displayName],
-            createdAt: new Date().getTime(),
+            createdAt: new Date(),
+            endAt: new Date(Date.now() + 604800000),  // 1 week in milliseconds
             creator: firebase.auth().currentUser.uid, // user who created the post
           })
           .then(docRef => {
@@ -154,42 +156,11 @@ function handleButtonPress() {
               createdAt: new Date().getTime(),
             });
           });
-      setTimeout(handleLeaveDay, 86400000);//1 day in milliseconds
-      setTimeout(handleLeaveWeek, 604800000); // 1 week in milliseconds
+
+
       navigation.navigate('homeScreen');
     }
 }
-//The two "setTimeout" functions above call the below functions after a certian amount of
-//milliseconds. It should delete the thread after 1 day and the history after 1 week. I tested
-//this out with a 30 second timer and it works, but I haven't seen it work for the longer times
-//and I think it's because I've never been logged in for that long. I hope it will still work
-//for the real thing.
-
-function handleLeaveDay() {
-    firebase.firestore()
-      .collection('threads')
-      .where("restaurant", "==", restaurant)
-      .get()
-      .then(querySnapshot => {
-        if (querySnapshot.docs[0] !== undefined) {
-            querySnapshot.docs[0].ref.delete();
-            };
-        });
-}
-
-function handleLeaveWeek() {
-    firebase.firestore()
-      .collection('history')
-      .where("restaurant", "==", restaurant)
-      .get()
-      .then(querySnapshot => {
-          if (querySnapshot.docs[0] !== undefined) {
-              querySnapshot.docs[0].ref.delete();
-              };
-        });
-}
-
-
 
 
 
