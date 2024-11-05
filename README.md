@@ -1,1 +1,1 @@
-# run "npm install" in terminal and code should work
+![](https://github.com/mmendiratta27/Bites/bites.gif)
