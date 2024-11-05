@@ -1,1 +1,1 @@
-![](https://github.com/mmendiratta27/Bites/blob/master/bites.gif)
+![](https://github.com/mmendiratta27/Bites/blob/main/bites.gif)
